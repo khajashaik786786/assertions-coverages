@@ -4,84 +4,97 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SVA & Coverage Hub — DV Engineer's Ultimate Guide</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --lime: #c8f135;
-  --lime-dark: #a8d020;
-  --dark: #0d0f0a;
-  --dark2: #141810;
-  --card: #181e10;
-  --card2: #1f2816;
-  --text: #e8f0d0;
-  --muted: #7a8f60;
-  --accent: #ff6b35;
-  --accent2: #35d4ff;
-  --white: #f5f8ee;
-  --border: rgba(200,241,53,0.15);
+  --lime: #5a9a00;
+  --lime-bg: #c8f135;
+  --lime-light: #e8f8a0;
+  --lime-xlight: #f4fcd8;
+  --dark: #0d1a05;
+  --dark2: #1a2e08;
+  --card: #ffffff;
+  --card2: #f5f8ee;
+  --card3: #eef5d8;
+  --text: #1a2e08;
+  --text2: #2d4a10;
+  --muted: #5a7040;
+  --muted2: #7a9060;
+  --accent: #d45000;
+  --accent2: #007ab8;
+  --white: #ffffff;
+  --border: rgba(90,154,0,0.18);
+  --border2: rgba(90,154,0,0.1);
+  --shadow: 0 2px 20px rgba(90,154,0,0.10);
+  --shadow-lg: 0 8px 48px rgba(90,154,0,0.13);
+  --bg: #f8fdf0;
+  --bg2: #f0f9e0;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
-
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--dark);
+  background: var(--bg);
   color: var(--text);
   font-family: 'DM Sans', sans-serif;
   overflow-x: hidden;
 }
 
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--dark); }
-::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 2px; }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 3px; }
 
 /* ── NAV ── */
 nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 48px;
-  background: rgba(13,15,10,0.85);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
+  padding: 16px 48px;
+  background: rgba(248,253,240,0.92);
+  backdrop-filter: blur(24px);
+  border-bottom: 1.5px solid var(--border);
+  box-shadow: 0 2px 24px rgba(90,154,0,0.07);
 }
 
 .nav-logo {
   background: var(--lime);
-  color: var(--dark);
+  color: #fff;
   font-family: 'Syne', sans-serif;
   font-weight: 800;
   font-size: 13px;
-  padding: 8px 14px;
-  border-radius: 6px;
-  letter-spacing: 0.5px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  display: inline-block;
 }
 
-.nav-links { display: flex; gap: 32px; }
+.nav-links { display: flex; gap: 28px; }
 .nav-links a {
   color: var(--muted);
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
   transition: color 0.2s;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
 }
-.nav-links a:hover { color: var(--lime); }
+.nav-links a:hover, .nav-links a.active { color: var(--lime); border-bottom-color: var(--lime-bg); }
 
 .nav-cta {
-  background: transparent;
-  border: 1.5px solid var(--lime);
-  color: var(--lime);
+  background: var(--lime);
+  border: none;
+  color: #fff;
   padding: 10px 22px;
   border-radius: 50px;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s;
   text-decoration: none;
-  display: flex; align-items: center; gap: 6px;
+  display: inline-flex; align-items: center; gap: 6px;
 }
-.nav-cta:hover { background: var(--lime); color: var(--dark); }
+.nav-cta:hover { background: var(--dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(90,154,0,0.25); }
 
 /* ── HERO ── */
 .hero {
@@ -90,173 +103,180 @@ nav {
   position: relative;
   padding: 120px 48px 80px;
   overflow: hidden;
-  background: linear-gradient(160deg, #0d1a05 0%, #0d0f0a 50%, #050d0a 100%);
+  background: linear-gradient(160deg, #e8f8a0 0%, #f4fcd8 40%, #f0f9e0 100%);
 }
 
 .hero-bg {
   position: absolute; inset: 0; pointer-events: none;
   background:
-    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(200,241,53,0.10) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 40% at 80% 80%, rgba(53,212,255,0.06) 0%, transparent 60%);
+    radial-gradient(ellipse 70% 50% at 50% -10%, rgba(200,241,53,0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 85% 90%, rgba(90,154,0,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 30% 30% at 5% 70%, rgba(0,122,184,0.06) 0%, transparent 60%);
 }
 
-/* 3D INSTRUCTOR CHARACTER */
+/* Decorative grid */
+.hero-grid {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0.35;
+  background-image: 
+    linear-gradient(rgba(90,154,0,0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(90,154,0,0.1) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
+}
+
 .instructor-wrap {
-  position: absolute; right: 6%; top: 50%; transform: translateY(-50%);
-  width: 280px; height: 380px;
+  position: absolute; right: 7%; top: 50%; transform: translateY(-50%);
+  width: 260px; height: 360px;
 }
 
 .instructor-3d {
   width: 100%; height: 100%;
-  position: relative;
   animation: float 4s ease-in-out infinite;
 }
 
 @keyframes float {
-  0%,100% { transform: translateY(0px) rotateY(0deg); }
-  50% { transform: translateY(-18px) rotateY(5deg); }
+  0%,100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(1deg); }
 }
 
-/* SVG Instructor */
 .instructor-3d svg {
   width: 100%; height: 100%;
-  filter: drop-shadow(0 30px 60px rgba(200,241,53,0.25));
+  filter: drop-shadow(0 20px 40px rgba(90,154,0,0.20));
 }
 
-/* Speech bubble */
 .speech-bubble {
-  position: absolute; top: -20px; left: -130px;
+  position: absolute; top: -24px; left: -145px;
   background: var(--lime);
-  color: var(--dark);
+  color: #fff;
   font-family: 'Space Mono', monospace;
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 700;
   padding: 10px 14px;
   border-radius: 12px 12px 0 12px;
   white-space: nowrap;
   animation: bubblePop 0.5s ease 1s both;
-  line-height: 1.5;
+  line-height: 1.6;
+  box-shadow: 0 4px 16px rgba(90,154,0,0.25);
 }
 @keyframes bubblePop {
-  from { opacity:0; transform: scale(0.5); }
+  from { opacity:0; transform: scale(0.4); }
   to { opacity:1; transform: scale(1); }
 }
 
 .hero-tag {
-  background: rgba(200,241,53,0.12);
-  border: 1px solid rgba(200,241,53,0.3);
+  background: rgba(90,154,0,0.1);
+  border: 1.5px solid rgba(90,154,0,0.3);
   color: var(--lime);
   font-family: 'Space Mono', monospace;
   font-size: 11px;
-  padding: 6px 14px;
+  padding: 7px 16px;
   border-radius: 50px;
   margin-bottom: 28px;
   display: inline-block;
   animation: fadeUp 0.6s ease both;
+  font-weight: 700;
 }
 
 .hero-title {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(42px, 6vw, 80px);
+  font-size: clamp(40px, 5.5vw, 76px);
   font-weight: 800;
   line-height: 1.0;
   max-width: 680px;
+  color: var(--dark);
   animation: fadeUp 0.7s ease 0.1s both;
 }
 
 .hero-title .hl {
-  background: var(--lime);
+  background: var(--lime-bg);
   color: var(--dark);
   padding: 0 10px;
-  border-radius: 6px;
+  border-radius: 8px;
   display: inline-block;
 }
 
-.hero-title .hl2 {
-  color: var(--lime);
-}
+.hero-title .hl2 { color: var(--lime); }
 
 .hero-sub {
-  margin-top: 20px;
+  margin-top: 22px;
   font-size: 16px;
   color: var(--muted);
   max-width: 520px;
-  line-height: 1.7;
+  line-height: 1.75;
   animation: fadeUp 0.7s ease 0.2s both;
 }
 
 .hero-btns {
   margin-top: 36px;
-  display: flex; gap: 14px;
+  display: flex; gap: 14px; flex-wrap: wrap;
   animation: fadeUp 0.7s ease 0.3s both;
 }
 
 .btn-primary {
   background: var(--lime);
-  color: var(--dark);
+  color: #fff;
   border: none;
   padding: 14px 28px;
   border-radius: 50px;
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;
-  display: flex; align-items: center; gap: 8px;
+  display: inline-flex; align-items: center; gap: 8px;
   transition: all 0.2s;
   text-decoration: none;
 }
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(200,241,53,0.35); }
+.btn-primary:hover { background: var(--dark); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(90,154,0,0.28); }
 
 .btn-secondary {
-  background: transparent;
+  background: #fff;
   color: var(--text);
-  border: 1.5px solid rgba(255,255,255,0.15);
+  border: 1.5px solid var(--border);
   padding: 14px 28px;
   border-radius: 50px;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 14px;
   cursor: pointer;
-  display: flex; align-items: center; gap: 8px;
+  display: inline-flex; align-items: center; gap: 8px;
   transition: all 0.2s;
   text-decoration: none;
 }
-.btn-secondary:hover { border-color: var(--lime); color: var(--lime); }
+.btn-secondary:hover { border-color: var(--lime); color: var(--lime); transform: translateY(-2px); box-shadow: var(--shadow); }
 
-/* Stats bar */
 .hero-stats {
-  display: flex; gap: 40px; margin-top: 60px;
+  display: flex; gap: 40px; margin-top: 56px;
   animation: fadeUp 0.7s ease 0.4s both;
+  flex-wrap: wrap;
 }
 .stat-item { text-align: left; }
 .stat-num {
   font-family: 'Syne', sans-serif;
-  font-size: 32px; font-weight: 800; color: var(--lime);
+  font-size: 30px; font-weight: 800; color: var(--lime);
 }
-.stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; font-weight: 500; }
 
-/* Dashboard preview card */
 .hero-dashboard {
-  margin-top: 80px;
+  margin-top: 72px;
   width: 100%;
-  max-width: 900px;
-  background: var(--card);
-  border: 1px solid var(--border);
+  max-width: 920px;
+  background: #fff;
+  border: 1.5px solid var(--border);
   border-radius: 20px;
   overflow: hidden;
   animation: fadeUp 0.8s ease 0.5s both;
-  box-shadow: 0 40px 100px rgba(0,0,0,0.5), 0 0 0 1px rgba(200,241,53,0.08);
+  box-shadow: 0 32px 80px rgba(90,154,0,0.13), 0 2px 0 rgba(200,241,53,0.4);
 }
 
 .dashboard-bar {
   background: var(--card2);
   padding: 14px 20px;
-  display: flex; align-items: center; gap: 12px;
-  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+  border-bottom: 1.5px solid var(--border);
 }
 .dot { width: 10px; height: 10px; border-radius: 50%; }
 .dot.r { background: #ff5f57; }
 .dot.y { background: #febc2e; }
-.dot.g { background: var(--lime); }
-.db-title { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--muted); margin-left: 8px; }
+.dot.g { background: #27c93f; }
+.db-title { font-family: 'Space Mono', monospace; font-size: 11.5px; color: var(--muted); margin-left: 8px; }
 
 .dashboard-content {
   display: grid; grid-template-columns: 200px 1fr;
@@ -264,47 +284,56 @@ nav {
 }
 
 .db-sidebar {
-  border-right: 1px solid var(--border);
+  border-right: 1.5px solid var(--border);
   padding: 16px;
+  background: var(--card2);
 }
 .db-menu-item {
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 12px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  font-size: 12.5px;
   color: var(--muted);
   margin-bottom: 4px;
   cursor: pointer;
   transition: all 0.2s;
+  font-weight: 500;
 }
-.db-menu-item.active { background: rgba(200,241,53,0.15); color: var(--lime); }
+.db-menu-item:hover { background: var(--lime-xlight); color: var(--lime); }
+.db-menu-item.active { background: rgba(90,154,0,0.15); color: var(--lime); font-weight: 700; }
 
 .db-main { padding: 20px; }
-.db-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+.db-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
 .db-tab {
-  padding: 5px 14px;
+  padding: 6px 16px;
   border-radius: 50px;
-  font-size: 11px;
-  background: var(--card2);
+  font-size: 12px;
+  background: var(--bg2);
   color: var(--muted);
   cursor: pointer;
+  border: 1.5px solid var(--border2);
+  transition: all 0.2s;
+  font-weight: 500;
 }
-.db-tab.active { background: var(--lime); color: var(--dark); font-weight: 700; }
+.db-tab:hover { border-color: var(--lime); color: var(--lime); }
+.db-tab.active { background: var(--lime); color: #fff; font-weight: 700; border-color: var(--lime); }
 
 .db-metrics { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
 .metric-card {
-  background: var(--card2);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 12px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  transition: all 0.2s;
 }
-.metric-label { font-size: 10px; color: var(--muted); }
-.metric-val { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); margin-top: 4px; }
+.metric-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+.metric-label { font-size: 10px; color: var(--muted); font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
+.metric-val { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--dark); margin-top: 4px; }
 .metric-badge {
   display: inline-flex; align-items: center; gap: 3px;
-  background: rgba(200,241,53,0.15);
+  background: rgba(90,154,0,0.12);
   color: var(--lime);
   font-size: 9px; font-weight: 700;
-  padding: 2px 6px; border-radius: 50px;
+  padding: 2px 7px; border-radius: 50px;
   margin-top: 4px;
 }
 
@@ -314,7 +343,7 @@ nav {
 }
 
 /* ── SECTIONS ── */
-section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
+section { padding: 100px 48px; max-width: 1240px; margin: 0 auto; }
 
 .section-tag {
   font-family: 'Space Mono', monospace;
@@ -323,6 +352,7 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 12px;
+  font-weight: 700;
 }
 
 .section-title {
@@ -331,12 +361,13 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
   font-weight: 800;
   line-height: 1.15;
   margin-bottom: 16px;
+  color: var(--dark);
 }
 
 .section-sub {
   color: var(--muted);
   font-size: 15px;
-  line-height: 1.7;
+  line-height: 1.75;
   max-width: 560px;
   margin-bottom: 48px;
 }
@@ -349,32 +380,35 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
 }
 
 .topic-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 18px;
   padding: 28px;
   cursor: pointer;
   transition: all 0.3s;
   position: relative;
   overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 .topic-card::before {
   content: '';
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 50% -20%, rgba(200,241,53,0.08) 0%, transparent 70%);
+  background: radial-gradient(ellipse 80% 60% at 50% -20%, rgba(90,154,0,0.06) 0%, transparent 70%);
   opacity: 0;
   transition: opacity 0.3s;
 }
 
-.topic-card:hover { border-color: rgba(200,241,53,0.4); transform: translateY(-4px); }
+.topic-card:hover { border-color: var(--lime); transform: translateY(-5px); box-shadow: var(--shadow-lg); }
 .topic-card:hover::before { opacity: 1; }
 
 .topic-icon {
-  width: 44px; height: 44px;
-  border-radius: 10px;
+  width: 48px; height: 48px;
+  border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
+  font-size: 22px;
   margin-bottom: 16px;
 }
 
@@ -383,94 +417,96 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
   font-size: 17px;
   font-weight: 700;
   margin-bottom: 8px;
+  color: var(--dark);
 }
 
-.topic-desc {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.6;
-}
+.topic-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
 
 .topic-arrow {
   position: absolute; bottom: 20px; right: 20px;
-  width: 28px; height: 28px;
-  border: 1px solid var(--border);
+  width: 30px; height: 30px;
+  border: 1.5px solid var(--border);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 13px;
   transition: all 0.2s;
+  background: var(--bg);
 }
-.topic-card:hover .topic-arrow { background: var(--lime); border-color: var(--lime); color: var(--dark); }
+.topic-card:hover .topic-arrow { background: var(--lime); border-color: var(--lime); color: #fff; }
 
-/* ── LESSON CARDS ── */
-.lesson-section { background: var(--dark2); }
-.lesson-wrap { max-width: 1200px; margin: 0 auto; padding: 100px 48px; }
+/* ── LESSON SECTION ── */
+.lesson-section { background: var(--bg2); }
+.lesson-wrap { max-width: 1240px; margin: 0 auto; padding: 100px 48px; }
 
-.lessons-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.lessons-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.lessons-layout-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
 
 .lesson-card {
-  background: var(--card);
-  border: 1px solid var(--border);
+  background: #fff;
+  border: 1.5px solid var(--border);
   border-radius: 20px;
   overflow: hidden;
   transition: all 0.3s;
+  box-shadow: 0 2px 12px rgba(90,154,0,0.05);
 }
-.lesson-card:hover { border-color: rgba(200,241,53,0.4); transform: translateY(-4px); }
+.lesson-card:hover { border-color: var(--lime); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
 
 .lesson-header {
   background: var(--card2);
-  padding: 20px 24px;
+  padding: 18px 24px;
   display: flex; align-items: center; justify-content: space-between;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1.5px solid var(--border);
 }
 
 .lesson-num {
   font-family: 'Space Mono', monospace;
   font-size: 11px;
   color: var(--lime);
+  font-weight: 700;
 }
 
 .lesson-badge {
-  background: rgba(200,241,53,0.15);
+  background: rgba(90,154,0,0.12);
   color: var(--lime);
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 800;
   padding: 3px 10px;
   border-radius: 50px;
+  letter-spacing: 0.5px;
 }
 
 .lesson-title {
   font-family: 'Syne', sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
-  padding: 20px 24px 0;
+  padding: 18px 24px 0;
+  color: var(--dark);
 }
 
 .lesson-desc {
   font-size: 13px;
   color: var(--muted);
   padding: 10px 24px 16px;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
-/* Code block */
 .code-block {
-  background: #0a0d07;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 16px 24px;
+  background: #1a2e08;
+  border-top: 1.5px solid var(--border);
+  border-bottom: 1.5px solid var(--border);
+  padding: 18px 24px;
   font-family: 'Space Mono', monospace;
   font-size: 11.5px;
-  line-height: 1.8;
+  line-height: 1.85;
   overflow-x: auto;
   position: relative;
 }
 
 .code-label {
   position: absolute; top: 10px; right: 14px;
-  background: rgba(200,241,53,0.1);
-  color: var(--lime);
+  background: rgba(200,241,53,0.15);
+  color: #c8f135;
   font-size: 9px;
   font-weight: 700;
   padding: 2px 8px;
@@ -480,7 +516,7 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
 
 .kw { color: #ff79c6; }
 .kw2 { color: #50fa7b; }
-.kw3 { color: var(--lime); }
+.kw3 { color: #c8f135; }
 .kw4 { color: #8be9fd; }
 .kw5 { color: #ffb86c; }
 .str { color: #f1fa8c; }
@@ -492,7 +528,7 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
   padding: 16px 24px;
   font-size: 13px;
   line-height: 1.7;
-  color: var(--text);
+  color: var(--text2);
 }
 
 .explain-row {
@@ -501,7 +537,7 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
 }
 
 .explain-dot {
-  width: 6px; height: 6px;
+  width: 7px; height: 7px;
   border-radius: 50%;
   background: var(--lime);
   flex-shrink: 0;
@@ -511,19 +547,20 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
 /* ── KEYWORD REFERENCE ── */
 .kw-ref-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   margin-top: 16px;
 }
 
 .kw-card {
-  background: var(--card2);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
   padding: 20px;
   transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(90,154,0,0.04);
 }
-.kw-card:hover { border-color: rgba(200,241,53,0.4); }
+.kw-card:hover { border-color: var(--lime); box-shadow: var(--shadow); transform: translateY(-2px); }
 
 .kw-name {
   font-family: 'Space Mono', monospace;
@@ -531,19 +568,23 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
   font-size: 13px;
   font-weight: 700;
   margin-bottom: 6px;
+  background: rgba(90,154,0,0.08);
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
 }
 
 .kw-meaning {
-  font-size: 12px;
-  color: var(--text);
+  font-size: 12.5px;
+  color: var(--dark);
   margin-bottom: 6px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .kw-detail {
-  font-size: 11.5px;
+  font-size: 12px;
   color: var(--muted);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 /* ── COVERAGE TYPES ── */
@@ -552,38 +593,41 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
 }
 
 .cov-card {
-  border-radius: 16px;
+  border-radius: 18px;
   padding: 28px;
   position: relative;
   overflow: hidden;
-  border: 1px solid transparent;
+  border: 1.5px solid transparent;
   transition: all 0.3s;
+  background: #fff;
 }
-.cov-card:hover { transform: translateY(-4px); }
-.cov-card.green { background: linear-gradient(135deg, #0d2210 0%, #142d12 100%); border-color: rgba(200,241,53,0.25); }
-.cov-card.blue { background: linear-gradient(135deg, #071824 0%, #0a2030 100%); border-color: rgba(53,212,255,0.2); }
-.cov-card.orange { background: linear-gradient(135deg, #1e0e05 0%, #2a1508 100%); border-color: rgba(255,107,53,0.2); }
+.cov-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+.cov-card.green { border-color: rgba(90,154,0,0.3); background: linear-gradient(135deg, #f0fcd8 0%, #e4f7b8 100%); }
+.cov-card.blue { border-color: rgba(0,122,184,0.25); background: linear-gradient(135deg, #e0f2ff 0%, #d0eaff 100%); }
+.cov-card.orange { border-color: rgba(212,80,0,0.2); background: linear-gradient(135deg, #fff0e8 0%, #ffe0c8 100%); }
 
-.cov-icon { font-size: 32px; margin-bottom: 14px; }
-.cov-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-.cov-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+.cov-icon { font-size: 34px; margin-bottom: 14px; }
+.cov-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+.cov-desc { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 16px; }
 
 .cov-syntax {
-  background: rgba(0,0,0,0.4);
-  border-radius: 8px;
-  padding: 12px;
+  background: #1a2e08;
+  border-radius: 10px;
+  padding: 14px;
   font-family: 'Space Mono', monospace;
   font-size: 10.5px;
-  line-height: 1.7;
+  line-height: 1.75;
+  color: #c8f135;
 }
 
-/* ── ASSERTION TIMELINE ── */
+/* ── TIMELINE ── */
 .timeline-wrap {
-  background: var(--card);
-  border: 1px solid var(--border);
+  background: #fff;
+  border: 1.5px solid var(--border);
   border-radius: 20px;
   padding: 32px;
   margin-top: 32px;
+  box-shadow: var(--shadow);
 }
 
 .timeline-title {
@@ -591,11 +635,10 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
   font-size: 16px;
   font-weight: 700;
   margin-bottom: 20px;
+  color: var(--dark);
 }
 
-.waveform {
-  display: flex; flex-direction: column; gap: 12px;
-}
+.waveform { display: flex; flex-direction: column; gap: 10px; }
 
 .wave-row { display: flex; align-items: center; gap: 14px; }
 .wave-label {
@@ -605,21 +648,23 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
   width: 80px;
   flex-shrink: 0;
   text-align: right;
+  font-weight: 700;
 }
 
 .wave-track {
   flex: 1;
-  height: 28px;
+  height: 30px;
   position: relative;
-  background: rgba(0,0,0,0.3);
+  background: var(--bg2);
   border-radius: 4px;
   overflow: hidden;
+  border: 1px solid var(--border2);
 }
 
 .wave-segment {
   position: absolute;
   top: 4px; bottom: 4px;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 .wave-label-val {
@@ -628,83 +673,80 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
   position: absolute;
   top: 50%; transform: translateY(-50%);
   left: 6px;
-  color: var(--dark);
   font-weight: 700;
 }
 
-/* Timing annotations */
 .timing-bar {
   display: flex;
   padding-left: 94px;
-  gap: 0;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 .tick {
   flex: 1;
   text-align: center;
   font-family: 'Space Mono', monospace;
   font-size: 9px;
-  color: var(--muted);
-  border-left: 1px dashed rgba(255,255,255,0.08);
+  color: var(--muted2);
+  border-left: 1px dashed var(--border);
   padding: 4px 0;
+  font-weight: 700;
 }
 
 /* ── INSTRUCTOR CALLOUT ── */
 .instructor-callout {
-  background: linear-gradient(135deg, #131f08, #0f1a06);
-  border: 1px solid rgba(200,241,53,0.25);
+  background: linear-gradient(135deg, #e8f8a0, #d8f090);
+  border: 1.5px solid rgba(90,154,0,0.3);
   border-radius: 20px;
   padding: 32px;
   display: flex;
   gap: 24px;
   align-items: flex-start;
   margin: 40px 0;
+  box-shadow: 0 4px 24px rgba(90,154,0,0.1);
 }
 
-.callout-avatar {
-  flex-shrink: 0;
-  width: 64px; height: 64px;
-}
-
+.callout-avatar { flex-shrink: 0; width: 64px; height: 64px; }
 .callout-content { flex: 1; }
 .callout-from {
   font-family: 'Space Mono', monospace;
   font-size: 10px;
   color: var(--lime);
   margin-bottom: 6px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 .callout-text {
   font-size: 14px;
-  line-height: 1.7;
-  color: var(--text);
+  line-height: 1.75;
+  color: var(--dark);
 }
 
 /* ── FULL LESSON BLOCKS ── */
 .full-lesson {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1.5px solid var(--border);
   padding-bottom: 60px;
   margin-bottom: 60px;
 }
 
-.fl-header {
-  display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
-}
+.fl-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
 
 .fl-num {
   background: var(--lime);
-  color: var(--dark);
+  color: #fff;
   font-family: 'Syne', sans-serif;
   font-size: 13px;
   font-weight: 800;
-  width: 36px; height: 36px;
+  width: 38px; height: 38px;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
 }
 
 .fl-title {
   font-family: 'Syne', sans-serif;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 800;
+  color: var(--dark);
 }
 
 .fl-body {
@@ -721,228 +763,367 @@ section { padding: 100px 48px; max-width: 1200px; margin: 0 auto; }
   border-collapse: collapse;
   font-size: 13px;
   margin: 24px 0;
+  box-shadow: var(--shadow);
+  border-radius: 14px;
+  overflow: hidden;
 }
 
 .ref-table th {
-  background: var(--card2);
-  color: var(--lime);
+  background: var(--lime);
+  color: #fff;
   font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  padding: 12px 16px;
+  font-size: 10.5px;
+  padding: 14px 16px;
   text-align: left;
-  border: 1px solid var(--border);
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 .ref-table td {
-  padding: 11px 16px;
-  border: 1px solid rgba(200,241,53,0.08);
-  color: var(--text);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border2);
+  color: var(--text2);
   vertical-align: top;
-  line-height: 1.5;
+  line-height: 1.55;
+  background: #fff;
 }
 
-.ref-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+.ref-table tr:nth-child(even) td { background: var(--bg); }
+.ref-table tr:hover td { background: var(--lime-xlight); }
 
 .ref-table code {
   font-family: 'Space Mono', monospace;
   color: var(--lime);
-  background: rgba(200,241,53,0.08);
-  padding: 1px 5px;
-  border-radius: 3px;
+  background: rgba(90,154,0,0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
   font-size: 11px;
+  font-weight: 700;
 }
 
-/* ── FOOTER ── */
-footer {
-  background: var(--dark2);
-  border-top: 1px solid var(--border);
-  padding: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* ── INFO BOX ── */
+.info-box {
+  background: var(--lime-xlight);
+  border-left: 4px solid var(--lime);
+  border-radius: 0 12px 12px 0;
+  padding: 18px 22px;
+  margin: 24px 0;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--dark);
 }
 
-.footer-logo {
+.info-box strong { color: var(--lime); }
+
+/* ── QUIZ CARD ── */
+.quiz-section {
+  background: linear-gradient(135deg, #1a2e08 0%, #0d1a05 100%);
+  padding: 80px 48px;
+}
+.quiz-wrap { max-width: 1240px; margin: 0 auto; }
+
+.quiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 40px; }
+
+.quiz-card {
+  background: rgba(200,241,53,0.06);
+  border: 1.5px solid rgba(200,241,53,0.2);
+  border-radius: 16px;
+  padding: 24px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.quiz-card:hover { border-color: rgba(200,241,53,0.5); background: rgba(200,241,53,0.1); }
+.quiz-q {
   font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 14px;
-  color: var(--lime);
+  font-size: 15px;
+  font-weight: 700;
+  color: #e8f0d0;
+  margin-bottom: 14px;
 }
-
-.footer-copy {
-  font-size: 12px;
-  color: var(--muted);
+.quiz-opts { display: flex; flex-direction: column; gap: 8px; }
+.quiz-opt {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(200,241,53,0.15);
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  color: #9ab870;
+  cursor: pointer;
+  transition: all 0.2s;
 }
+.quiz-opt:hover { background: rgba(200,241,53,0.12); color: #c8f135; border-color: rgba(200,241,53,0.4); }
+.quiz-opt.correct { background: rgba(90,200,90,0.2); border-color: rgba(90,200,90,0.5); color: #90e090; }
+.quiz-opt.wrong { background: rgba(200,80,80,0.2); border-color: rgba(200,80,80,0.4); color: #e09090; }
 
 /* ── SEPARATORS ── */
 .full-bleed-sep {
   width: 100vw; margin-left: calc(-50vw + 50%);
-  height: 1px;
+  height: 1.5px;
   background: linear-gradient(90deg, transparent, var(--border), transparent);
 }
 
-/* ── Smooth scroll anchors ── */
-.anchor { scroll-margin-top: 80px; }
+/* ── CHEATSHEET ── */
+.cheatsheet-wrap {
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  margin-top: 40px;
+}
+.cs-header {
+  background: var(--lime);
+  padding: 18px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.cs-title { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; color: #fff; }
+.cs-body { padding: 24px; }
+.cs-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.cs-item {
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 14px;
+}
+.cs-item code {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  color: var(--lime);
+  font-weight: 700;
+  margin-bottom: 6px;
+  background: rgba(90,154,0,0.08);
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+.cs-item p { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+
+/* ── COMPARISON TABLE ── */
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+.compare-card {
+  background: #fff;
+  border: 2px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.compare-head {
+  padding: 18px 24px;
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+}
+.compare-head.green { background: var(--lime); }
+.compare-head.blue { background: var(--accent2); }
+.compare-body { padding: 20px 24px; }
+.compare-row { display: flex; gap: 10px; margin-bottom: 10px; font-size: 13px; color: var(--text2); align-items: flex-start; }
+.compare-row .ci { flex-shrink: 0; font-size: 16px; }
+
+/* ── ANCHOR ── */
+.anchor { scroll-margin-top: 90px; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--dark);
+  border-top: 2px solid var(--lime-bg);
+  padding: 56px 48px;
+}
+.footer-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+.footer-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--lime-bg);
+}
+.footer-links { display: flex; gap: 24px; }
+.footer-links a {
+  font-size: 13px;
+  color: rgba(200,241,53,0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--lime-bg); }
+.footer-copy { font-size: 12px; color: rgba(200,241,53,0.35); }
+
+/* ── PROGRESS BAR ── */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--lime), var(--lime-bg));
+  z-index: 300;
+  transition: width 0.1s;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ── BACK TO TOP ── */
+#back-to-top {
+  position: fixed; bottom: 28px; right: 28px; z-index: 200;
+  background: var(--lime);
+  color: #fff;
+  border: none;
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(90,154,0,0.3);
+  transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+}
+#back-to-top.visible { opacity: 1; pointer-events: all; }
+#back-to-top:hover { background: var(--dark); transform: translateY(-3px); }
 
 /* Responsive */
-@media (max-width: 900px) {
-  .topics-grid, .lessons-layout, .cov-types, .kw-ref-grid { grid-template-columns: 1fr; }
+@media (max-width: 960px) {
+  .topics-grid, .cov-types, .kw-ref-grid, .cs-grid { grid-template-columns: 1fr 1fr; }
+  .lessons-layout, .lessons-layout-3, .compare-grid, .quiz-grid { grid-template-columns: 1fr; }
   .instructor-wrap { display: none; }
   nav { padding: 14px 20px; }
-  nav .nav-links { display: none; }
-  section, .lesson-wrap { padding: 60px 20px; }
+  .nav-links { display: none; }
+  section, .lesson-wrap, .quiz-wrap { padding: 60px 20px; }
   .hero { padding: 100px 20px 60px; }
   .dashboard-content { grid-template-columns: 1fr; }
   .db-sidebar { display: none; }
-  footer { flex-direction: column; gap: 12px; text-align: center; }
+  .db-metrics { grid-template-columns: 1fr 1fr; }
+  footer { padding: 40px 20px; }
+  .footer-inner { flex-direction: column; text-align: center; }
+}
+@media (max-width: 600px) {
+  .topics-grid, .kw-ref-grid, .cs-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 24px; }
+  .db-metrics { grid-template-columns: 1fr 1fr; }
 }
 </style>
 </head>
 <body>
 
+<!-- Progress bar -->
+<div id="progress-bar"></div>
+
 <!-- ── NAV ── -->
 <nav>
-  <div class="nav-logo">DV HUB</div>
+  <a href="#top" class="nav-logo">DV HUB</a>
   <div class="nav-links">
     <a href="#coverage">Coverage</a>
     <a href="#assertions">Assertions</a>
     <a href="#keywords">Keywords</a>
     <a href="#examples">Examples</a>
+    <a href="#advanced">Advanced</a>
+    <a href="#quiz">Quiz</a>
+    <a href="#cheatsheet">Cheatsheet</a>
   </div>
   <a href="#coverage" class="nav-cta">Start Learning ↗</a>
 </nav>
 
 <!-- ── HERO ── -->
-<div class="hero">
+<div class="hero" id="top">
   <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
 
-  <!-- 3D Instructor -->
+  <!-- Instructor -->
   <div class="instructor-wrap">
     <div class="instructor-3d">
       <div class="speech-bubble">assert (req ##1 ack);<br>Let's verify this! 🎯</div>
       <svg viewBox="0 0 260 360" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#c8f135"/>
-            <stop offset="100%" stop-color="#8ab520"/>
+            <stop offset="0%" stop-color="#5a9a00"/>
+            <stop offset="100%" stop-color="#3a6a00"/>
           </linearGradient>
           <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stop-color="#ffd4a3"/>
             <stop offset="100%" stop-color="#f0b87a"/>
           </linearGradient>
           <linearGradient id="shirtGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#1e3a10"/>
-            <stop offset="100%" stop-color="#0d1f08"/>
-          </linearGradient>
-          <linearGradient id="screenGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#0a1a05"/>
-            <stop offset="100%" stop-color="#050d02"/>
+            <stop offset="0%" stop-color="#1e4a10"/>
+            <stop offset="100%" stop-color="#0d2a08"/>
           </linearGradient>
           <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feGaussianBlur stdDeviation="2" result="blur"/>
             <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
           </filter>
         </defs>
-
-        <!-- Shadow -->
-        <ellipse cx="130" cy="350" rx="70" ry="10" fill="rgba(0,0,0,0.3)"/>
-
-        <!-- Body/Jacket -->
+        <ellipse cx="130" cy="350" rx="70" ry="10" fill="rgba(0,0,0,0.12)"/>
         <rect x="70" y="155" width="120" height="140" rx="16" fill="url(#shirtGrad)"/>
-        <!-- Jacket lapels -->
-        <polygon points="130,160 95,175 110,220 130,200" fill="#2a5010"/>
-        <polygon points="130,160 165,175 150,220 130,200" fill="#2a5010"/>
-        <!-- Tie -->
+        <polygon points="130,160 95,175 110,220 130,200" fill="#2a6010"/>
+        <polygon points="130,160 165,175 150,220 130,200" fill="#2a6010"/>
         <polygon points="130,165 124,190 130,300 136,190" fill="url(#bodyGrad)"/>
-
-        <!-- Left Arm -->
         <rect x="30" y="160" width="42" height="100" rx="20" fill="url(#shirtGrad)" transform="rotate(-8,51,210)"/>
-        <!-- Left Hand -->
         <ellipse cx="28" cy="260" rx="16" ry="14" fill="url(#skinGrad)"/>
-        <!-- Laptop in left hand -->
-        <rect x="5" y="235" width="50" height="34" rx="5" fill="#222" stroke="#c8f135" stroke-width="1.5"/>
-        <rect x="8" y="238" width="44" height="24" rx="3" fill="url(#screenGrad)"/>
+        <rect x="5" y="235" width="50" height="34" rx="5" fill="#222" stroke="#5a9a00" stroke-width="1.5"/>
+        <rect x="8" y="238" width="44" height="24" rx="3" fill="#0d1a05"/>
         <text x="10" y="250" fill="#c8f135" font-family="monospace" font-size="6" filter="url(#glow)">assert(req</text>
         <text x="10" y="258" fill="#c8f135" font-family="monospace" font-size="6">##1 ack);</text>
-
-        <!-- Right Arm (pointing up) -->
         <rect x="188" y="155" width="42" height="90" rx="20" fill="url(#shirtGrad)" transform="rotate(12,209,200)"/>
-        <!-- Right Hand -->
         <ellipse cx="216" cy="140" rx="14" ry="16" fill="url(#skinGrad)"/>
-        <!-- Pointing finger -->
         <rect x="213" y="112" width="8" height="28" rx="4" fill="url(#skinGrad)"/>
-
-        <!-- Neck -->
         <rect x="112" y="118" width="36" height="42" rx="10" fill="url(#skinGrad)"/>
-
-        <!-- Head -->
         <ellipse cx="130" cy="100" rx="50" ry="58" fill="url(#skinGrad)"/>
-        <!-- Hair -->
         <ellipse cx="130" cy="52" rx="50" ry="30" fill="#1a0a00"/>
-        <rect x="80" y="52" width="100" height="26" rx="0" fill="#1a0a00"/>
-        <!-- Glasses -->
-        <circle cx="112" cy="100" r="17" fill="none" stroke="#333" stroke-width="2.5"/>
-        <circle cx="148" cy="100" r="17" fill="none" stroke="#333" stroke-width="2.5"/>
-        <line x1="129" y1="100" x2="131" y2="100" stroke="#333" stroke-width="2"/>
-        <line x1="80" y1="100" x2="95" y2="100" stroke="#333" stroke-width="2"/>
-        <line x1="165" y1="100" x2="180" y2="100" stroke="#333" stroke-width="2"/>
-        <!-- Eyes behind glasses -->
+        <rect x="80" y="52" width="100" height="26" fill="#1a0a00"/>
+        <circle cx="112" cy="100" r="17" fill="none" stroke="#555" stroke-width="2.5"/>
+        <circle cx="148" cy="100" r="17" fill="none" stroke="#555" stroke-width="2.5"/>
+        <line x1="129" y1="100" x2="131" y2="100" stroke="#555" stroke-width="2"/>
+        <line x1="80" y1="100" x2="95" y2="100" stroke="#555" stroke-width="2"/>
+        <line x1="165" y1="100" x2="180" y2="100" stroke="#555" stroke-width="2"/>
         <circle cx="112" cy="100" r="5" fill="#1a3a50"/>
         <circle cx="148" cy="100" r="5" fill="#1a3a50"/>
         <circle cx="113" cy="99" r="2" fill="white"/>
         <circle cx="149" cy="99" r="2" fill="white"/>
-        <!-- Smile -->
         <path d="M118 118 Q130 130 142 118" fill="none" stroke="#c0704a" stroke-width="2.5" stroke-linecap="round"/>
-        <!-- Nose -->
         <path d="M127 106 Q130 114 133 106" fill="none" stroke="#c0844a" stroke-width="1.5" stroke-linecap="round"/>
-
-        <!-- Shoes -->
-        <ellipse cx="100" cy="298" rx="28" ry="12" fill="#1a1a1a"/>
-        <ellipse cx="158" cy="298" rx="28" ry="12" fill="#1a1a1a"/>
-
-        <!-- Legs -->
-        <rect x="88" y="258" width="28" height="42" rx="10" fill="#1f3a0d"/>
-        <rect x="144" y="258" width="28" height="42" rx="10" fill="#1f3a0d"/>
-
-        <!-- Lime glow aura -->
-        <ellipse cx="130" cy="200" rx="90" ry="160" fill="none" stroke="rgba(200,241,53,0.08)" stroke-width="2"/>
-
-        <!-- DV badge -->
+        <ellipse cx="100" cy="298" rx="28" ry="12" fill="#2a2a2a"/>
+        <ellipse cx="158" cy="298" rx="28" ry="12" fill="#2a2a2a"/>
+        <rect x="88" y="258" width="28" height="42" rx="10" fill="#1f4a0d"/>
+        <rect x="144" y="258" width="28" height="42" rx="10" fill="#1f4a0d"/>
         <rect x="72" y="185" width="36" height="20" rx="4" fill="url(#bodyGrad)"/>
-        <text x="90" y="199" fill="#0d0f0a" font-family="Syne,sans-serif" font-size="9" font-weight="900" text-anchor="middle">DV</text>
+        <text x="90" y="199" fill="#fff" font-family="Syne,sans-serif" font-size="9" font-weight="900" text-anchor="middle">DV</text>
       </svg>
     </div>
   </div>
 
-  <div class="hero-tag">// SystemVerilog Verification Guide</div>
+  <div class="hero-tag">// SystemVerilog Verification Complete Guide</div>
 
   <h1 class="hero-title">
     THE ONLY <span class="hl">COVERAGE</span><br>
     &amp; <span class="hl2">ASSERTIONS</span><br>
-    HUB YOU'LL EVER NEED.
+    HUB YOU NEED.
   </h1>
 
   <p class="hero-sub">
-    Made by DV Engineers who really get the craft. Expert-crafted, results-driven, tailored explanations that get your verification skills lifted.
+    Made by DV Engineers, for DV Engineers. Master functional coverage, SVA, temporal operators, UVM integration, and interview prep — all in one place.
   </p>
 
   <div class="hero-btns">
     <a href="#coverage" class="btn-primary">Start Learning ↗</a>
-    <a href="#keywords" class="btn-secondary">↗ All Keywords</a>
+    <a href="#keywords" class="btn-secondary">All Keywords ↗</a>
+    <a href="#cheatsheet" class="btn-secondary">Cheatsheet ↗</a>
   </div>
 
   <div class="hero-stats">
     <div class="stat-item">
-      <div class="stat-num">6+</div>
+      <div class="stat-num">8+</div>
       <div class="stat-label">Coverage Types</div>
     </div>
     <div class="stat-item">
-      <div class="stat-num">12+</div>
+      <div class="stat-num">20+</div>
       <div class="stat-label">SVA Keywords</div>
     </div>
     <div class="stat-item">
-      <div class="stat-num">20+</div>
+      <div class="stat-num">35+</div>
       <div class="stat-label">Code Examples</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">12+</div>
+      <div class="stat-label">Quiz Questions</div>
     </div>
   </div>
 
@@ -954,18 +1135,19 @@ footer {
     </div>
     <div class="dashboard-content">
       <div class="db-sidebar">
-        <div class="db-menu-item active">📊 Coverage</div>
-        <div class="db-menu-item">✅ Assertions</div>
-        <div class="db-menu-item">🔑 Keywords</div>
-        <div class="db-menu-item">💡 Examples</div>
-        <div class="db-menu-item">🎯 Interview</div>
+        <div class="db-menu-item active" onclick="activateMenu(this)">📊 Coverage</div>
+        <div class="db-menu-item" onclick="activateMenu(this)">✅ Assertions</div>
+        <div class="db-menu-item" onclick="activateMenu(this)">🔑 Keywords</div>
+        <div class="db-menu-item" onclick="activateMenu(this)">💡 Examples</div>
+        <div class="db-menu-item" onclick="activateMenu(this)">🎯 Interview</div>
+        <div class="db-menu-item" onclick="activateMenu(this)">📐 Cheatsheet</div>
       </div>
       <div class="db-main">
         <div class="db-tabs">
-          <div class="db-tab active">Functional</div>
-          <div class="db-tab">Code</div>
-          <div class="db-tab">Concurrent</div>
-          <div class="db-tab">Immediate</div>
+          <div class="db-tab active" onclick="activateTab(this)">Functional</div>
+          <div class="db-tab" onclick="activateTab(this)">Code</div>
+          <div class="db-tab" onclick="activateTab(this)">Concurrent</div>
+          <div class="db-tab" onclick="activateTab(this)">Immediate</div>
         </div>
         <div class="db-metrics">
           <div class="metric-card">
@@ -998,45 +1180,63 @@ footer {
 <section id="overview" class="anchor">
   <div class="section-tag">// WHAT YOU'LL MASTER</div>
   <h2 class="section-title">Complete DV<br>Knowledge Stack</h2>
-  <p class="section-sub">Every concept from functional coverage to formal assertions, with real SystemVerilog code examples.</p>
+  <p class="section-sub">Every concept from functional coverage to formal assertions, with real SystemVerilog code examples you can copy and use today.</p>
 
   <div class="topics-grid">
-    <div class="topic-card">
-      <div class="topic-icon" style="background:rgba(200,241,53,0.15)">📊</div>
+    <a href="#coverage" class="topic-card">
+      <div class="topic-icon" style="background:rgba(90,154,0,0.12)">📊</div>
       <div class="topic-title">Functional Coverage</div>
       <div class="topic-desc">covergroup, coverpoint, bins, cross — measuring what matters to your design intent.</div>
       <div class="topic-arrow">↗</div>
-    </div>
-    <div class="topic-card">
-      <div class="topic-icon" style="background:rgba(53,212,255,0.12)">🔄</div>
+    </a>
+    <a href="#coverage" class="topic-card">
+      <div class="topic-icon" style="background:rgba(0,122,184,0.1)">🔄</div>
       <div class="topic-title">Code Coverage</div>
       <div class="topic-desc">Line, toggle, branch, expression, FSM — automated structural coverage from tools.</div>
       <div class="topic-arrow">↗</div>
-    </div>
-    <div class="topic-card">
-      <div class="topic-icon" style="background:rgba(255,107,53,0.12)">⚡</div>
+    </a>
+    <a href="#assertions" class="topic-card">
+      <div class="topic-icon" style="background:rgba(212,80,0,0.1)">⚡</div>
       <div class="topic-title">Concurrent Assertions</div>
       <div class="topic-desc">Property-based temporal checking across clock cycles using sequences and properties.</div>
       <div class="topic-arrow">↗</div>
-    </div>
-    <div class="topic-card">
-      <div class="topic-icon" style="background:rgba(189,147,249,0.12)">🎯</div>
+    </a>
+    <a href="#assertions" class="topic-card">
+      <div class="topic-icon" style="background:rgba(130,80,200,0.1)">🎯</div>
       <div class="topic-title">Immediate Assertions</div>
       <div class="topic-desc">Procedural assert statements that check conditions at a single point in time.</div>
       <div class="topic-arrow">↗</div>
-    </div>
-    <div class="topic-card">
-      <div class="topic-icon" style="background:rgba(200,241,53,0.15)">🕐</div>
+    </a>
+    <a href="#keywords" class="topic-card">
+      <div class="topic-icon" style="background:rgba(90,154,0,0.12)">🕐</div>
       <div class="topic-title">Temporal Operators</div>
-      <div class="topic-desc">##, |=>, |=>, [*], [+], [->] — building complex multi-cycle sequence expressions.</div>
+      <div class="topic-desc">##, |=>, |->, [*], [+], [->] — building complex multi-cycle sequence expressions.</div>
       <div class="topic-arrow">↗</div>
-    </div>
-    <div class="topic-card">
-      <div class="topic-icon" style="background:rgba(255,107,53,0.12)">🏗️</div>
+    </a>
+    <a href="#examples" class="topic-card">
+      <div class="topic-icon" style="background:rgba(212,80,0,0.1)">🏗️</div>
       <div class="topic-title">Bins & Cross Coverage</div>
       <div class="topic-desc">Explicit, implicit, ignore_bins, illegal_bins, cross — fine-grained coverage control.</div>
       <div class="topic-arrow">↗</div>
-    </div>
+    </a>
+    <a href="#advanced" class="topic-card">
+      <div class="topic-icon" style="background:rgba(0,122,184,0.1)">🧩</div>
+      <div class="topic-title">UVM Integration</div>
+      <div class="topic-desc">Embedding covergroups in monitors, scoreboard callbacks, and subscriber components.</div>
+      <div class="topic-arrow">↗</div>
+    </a>
+    <a href="#advanced" class="topic-card">
+      <div class="topic-icon" style="background:rgba(130,80,200,0.1)">🔬</div>
+      <div class="topic-title">Formal Verification</div>
+      <div class="topic-desc">assume, restrict, cover — using SVA for exhaustive formal property checking.</div>
+      <div class="topic-arrow">↗</div>
+    </a>
+    <a href="#quiz" class="topic-card">
+      <div class="topic-icon" style="background:rgba(90,154,0,0.12)">📝</div>
+      <div class="topic-title">Interview Prep</div>
+      <div class="topic-desc">Common AMD/Qualcomm/Intel questions, tricky differentiators, and expert tips.</div>
+      <div class="topic-arrow">↗</div>
+    </a>
   </div>
 </section>
 
@@ -1048,11 +1248,10 @@ footer {
   <h2 class="section-title">Coverage in<br>SystemVerilog</h2>
   <p class="section-sub">Coverage is the metric that tells you <em>how much of your design intent has been exercised</em> by your testbench.</p>
 
-  <!-- Instructor callout -->
   <div class="instructor-callout">
     <div class="callout-avatar">
       <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="32" cy="32" r="32" fill="#131f08"/>
+        <circle cx="32" cy="32" r="32" fill="#e8f8a0"/>
         <ellipse cx="32" cy="28" rx="14" ry="16" fill="#ffd4a3"/>
         <rect x="18" y="20" width="28" height="14" rx="7" fill="#1a0a00"/>
         <circle cx="25" cy="30" r="4" fill="none" stroke="#555" stroke-width="1.5"/>
@@ -1061,60 +1260,57 @@ footer {
         <circle cx="25" cy="30" r="2" fill="#1a3a50"/>
         <circle cx="39" cy="30" r="2" fill="#1a3a50"/>
         <path d="M26 37 Q32 43 38 37" fill="none" stroke="#c0704a" stroke-width="1.5" stroke-linecap="round"/>
-        <rect x="18" y="44" width="28" height="18" rx="8" fill="#1e3a10"/>
-        <rect x="22" y="48" width="8" height="5" rx="2" fill="#c8f135"/>
+        <rect x="18" y="44" width="28" height="18" rx="8" fill="#1e4a10"/>
+        <rect x="22" y="48" width="8" height="5" rx="2" fill="#5a9a00"/>
       </svg>
     </div>
     <div class="callout-content">
       <div class="callout-from">// INSTRUCTOR NOTE</div>
       <div class="callout-text">
-        Think of coverage as a <strong style="color:var(--lime)">GPS tracker for your tests</strong>. You write stimulus, but <em>how do you know</em> you've hit all the important scenarios? Coverage gives you that answer. Without it, you're flying blind — your simulation might pass but miss critical corner cases that only show up in silicon.
+        Think of coverage as a <strong>GPS tracker for your tests</strong>. You write stimulus, but <em>how do you know</em> you've hit all the important scenarios? Coverage gives you that answer. Without it, you're flying blind — your simulation might pass but miss critical corner cases that only show up in silicon.
       </div>
     </div>
   </div>
 
-  <!-- 3 types -->
   <div class="cov-types">
     <div class="cov-card green">
       <div class="cov-icon">📐</div>
       <div class="cov-title" style="color:var(--lime)">Code Coverage</div>
-      <div class="cov-desc">Structural coverage automatically measured by the simulator tool. No user code needed.</div>
+      <div class="cov-desc">Structural coverage automatically measured by the simulator. No user code needed — the tool instruments RTL.</div>
       <div class="cov-syntax">
-        <span class="cmt">// Types:</span><br>
-        <span class="kw3">line</span>    → every line executed?<br>
-        <span class="kw3">toggle</span>  → 0→1, 1→0 on signals<br>
-        <span class="kw3">branch</span>  → if/else paths taken<br>
-        <span class="kw3">expr</span>    → boolean sub-exprs<br>
-        <span class="kw3">fsm</span>     → state transitions
-      </div>
+<span style="color:#6272a4;font-style:italic">// Types:</span>
+<span style="color:#c8f135">line</span>    → every line executed?
+<span style="color:#c8f135">toggle</span>  → 0→1, 1→0 on signals
+<span style="color:#c8f135">branch</span>  → if/else paths taken
+<span style="color:#c8f135">expr</span>    → boolean sub-exprs
+<span style="color:#c8f135">fsm</span>     → state transitions
+<span style="color:#c8f135">cond</span>    → condition coverage</div>
     </div>
     <div class="cov-card blue">
       <div class="cov-icon">🎯</div>
       <div class="cov-title" style="color:var(--accent2)">Functional Coverage</div>
-      <div class="cov-desc">User-defined coverage written in SystemVerilog. Captures design intent not structure.</div>
+      <div class="cov-desc">User-defined coverage written in SystemVerilog. Captures design <em>intent</em> — not structure. The most important kind.</div>
       <div class="cov-syntax">
-        <span class="kw">covergroup</span> cg;<br>
-        &nbsp;&nbsp;<span class="kw2">coverpoint</span> addr;<br>
-        &nbsp;&nbsp;<span class="kw2">cross</span> addr, rw;<br>
-        <span class="kw">endgroup</span><br>
-        <span class="cmt">// Measures INTENT ✓</span>
-      </div>
+<span style="color:#ff79c6">covergroup</span> cg;
+  <span style="color:#50fa7b">coverpoint</span> addr;
+  <span style="color:#50fa7b">cross</span> addr, rw;
+<span style="color:#ff79c6">endgroup</span>
+<span style="color:#6272a4;font-style:italic">// Measures INTENT ✓</span></div>
     </div>
     <div class="cov-card orange">
       <div class="cov-icon">🔍</div>
       <div class="cov-title" style="color:var(--accent)">Assertion Coverage</div>
-      <div class="cov-desc">Tracks how many times a cover property or coversequence was hit during simulation.</div>
+      <div class="cov-desc">Tracks how many times a cover property or cover sequence was hit. Complementary to functional coverage.</div>
       <div class="cov-syntax">
-        <span class="kw">cover</span> <span class="kw2">property</span> (<br>
-        &nbsp;&nbsp;@(<span class="kw3">posedge</span> clk)<br>
-        &nbsp;&nbsp;req <span class="kw5">##1</span> ack<br>
-        ); <span class="cmt">// count hits ✓</span>
-      </div>
+<span style="color:#ff79c6">cover</span> <span style="color:#50fa7b">property</span> (
+  @(<span style="color:#c8f135">posedge</span> clk)
+  req <span style="color:#ffb86c">##1</span> ack
+); <span style="color:#6272a4;font-style:italic">// count hits ✓</span></div>
     </div>
   </div>
 </section>
 
-<!-- ── COVERGROUP DEEP DIVE ── -->
+<!-- ── MODULE 02: COVERGROUP DEEP DIVE ── -->
 <div class="lesson-section">
 <div class="lesson-wrap" id="examples">
 
@@ -1130,7 +1326,7 @@ footer {
         <div class="lesson-badge">COVERGROUP</div>
       </div>
       <div class="lesson-title">Basic covergroup</div>
-      <div class="lesson-desc">A covergroup is a user-defined type that groups related coverage points together. Instantiate it like a class.</div>
+      <div class="lesson-desc">A covergroup is a user-defined type that groups related coverage points. Instantiate it like a class.</div>
       <div class="code-block">
         <div class="code-label">SV</div>
 <span class="kw">covergroup</span> addr_cg <span class="kw3">@(posedge clk)</span>;<br>
@@ -1147,10 +1343,10 @@ addr_cg cg_inst = <span class="kw3">new</span>();<br>
 cg_inst.<span class="kw5">sample</span>();
       </div>
       <div class="lesson-explain">
-        <div class="explain-row"><div class="explain-dot"></div><div><strong>covergroup</strong> — defines the coverage container type. Must be instantiated with <code>new()</code></div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>covergroup</strong> — defines the coverage container type. Must be instantiated with <code style="color:var(--lime);background:rgba(90,154,0,0.1);padding:1px 5px;border-radius:3px;font-family:monospace">new()</code></div></div>
         <div class="explain-row"><div class="explain-dot"></div><div><strong>coverpoint</strong> — the signal or expression being sampled</div></div>
         <div class="explain-row"><div class="explain-dot"></div><div><strong>bins</strong> — partitions the coverpoint's value range into named buckets</div></div>
-        <div class="explain-row"><div class="explain-dot"></div><div><strong>@(posedge clk)</strong> — auto-samples at every rising edge. Remove to sample manually via <code>.sample()</code></div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>@(posedge clk)</strong> — auto-samples at every rising edge</div></div>
       </div>
     </div>
 
@@ -1161,7 +1357,7 @@ cg_inst.<span class="kw5">sample</span>();
         <div class="lesson-badge">BINS</div>
       </div>
       <div class="lesson-title">Types of Bins</div>
-      <div class="lesson-desc">Bins control how values are grouped. Illegal and ignore bins shape what gets counted.</div>
+      <div class="lesson-desc">Bins control how values are grouped. Illegal and ignore bins shape what gets counted toward coverage.</div>
       <div class="code-block">
         <div class="code-label">SV</div>
 <span class="kw">covergroup</span> opcode_cg;<br>
@@ -1182,9 +1378,9 @@ cg_inst.<span class="kw5">sample</span>();
       </div>
       <div class="lesson-explain">
         <div class="explain-row"><div class="explain-dot"></div><div><strong>bins</strong> — counts when this value/range is sampled</div></div>
-        <div class="explain-row"><div class="explain-dot"></div><div><strong>wildcard bins</strong> — treats <code>?</code> as don't-care (X or Z)</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>wildcard bins</strong> — treats ? as don't-care</div></div>
         <div class="explain-row"><div class="explain-dot"></div><div><strong>transition bin (=>)</strong> — hit only when value sequence occurs in order</div></div>
-        <div class="explain-row"><div class="explain-dot"></div><div><strong>ignore_bins</strong> — excluded from coverage metric, not an error</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>ignore_bins</strong> — excluded from metric, not an error</div></div>
         <div class="explain-row"><div class="explain-dot"></div><div><strong>illegal_bins</strong> — triggers a simulation error if hit</div></div>
       </div>
     </div>
@@ -1196,7 +1392,7 @@ cg_inst.<span class="kw5">sample</span>();
         <div class="lesson-badge">CROSS</div>
       </div>
       <div class="lesson-title">Cross Coverage</div>
-      <div class="lesson-desc">cross measures combinations of two or more coverpoints — catches scenarios missed by individual coverpoints.</div>
+      <div class="lesson-desc">cross measures combinations of two or more coverpoints — catches scenarios missed by individual coverage.</div>
       <div class="code-block">
         <div class="code-label">SV</div>
 <span class="kw">covergroup</span> bus_cg;<br>
@@ -1209,14 +1405,14 @@ cg_inst.<span class="kw5">sample</span>();
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> hword = {<span class="num">1</span>};<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> word_  = {<span class="num">2</span>};<br>
 &nbsp;&nbsp;}<br>
-&nbsp;&nbsp;<span class="cmt">// 2 x 3 = 6 cross bins</span><br>
+&nbsp;&nbsp;<span class="cmt">// 2 x 3 = 6 cross bins auto-created</span><br>
 &nbsp;&nbsp;<span class="kw">cross</span> rw, size;<br>
 <span class="kw">endgroup</span>
       </div>
       <div class="lesson-explain">
-        <div class="explain-row"><div class="explain-dot"></div><div><strong>cross</strong> — creates N×M bins from two coverpoints. Checks every <em>combination</em> (e.g. "read 4-byte", "write 2-byte") was exercised</div></div>
-        <div class="explain-row"><div class="explain-dot"></div><div>Without cross, 100% on each coverpoint still wouldn't tell you if "write + word" was ever tested together</div></div>
-        <div class="explain-row"><div class="explain-dot"></div><div>Use <code>ignore_bins</code> inside cross to exclude impossible combos</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>cross</strong> — creates N×M bins from two coverpoints</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div>Without cross, 100% on each coverpoint won't tell you if "write + word" was tested together</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div>Use <code style="color:var(--lime);background:rgba(90,154,0,0.1);padding:1px 4px;border-radius:3px;font-family:monospace">ignore_bins</code> inside cross to exclude impossible combinations</div></div>
       </div>
     </div>
 
@@ -1231,22 +1427,86 @@ cg_inst.<span class="kw5">sample</span>();
       <div class="code-block">
         <div class="code-label">SV</div>
 <span class="kw">covergroup</span> cfg_cg;<br>
-&nbsp;&nbsp;<span class="cmt">// set coverage goal (default 100%)</span><br>
+&nbsp;&nbsp;<span class="cmt">// coverage goal (default 100%)</span><br>
 &nbsp;&nbsp;<span class="kw3">option</span>.goal = <span class="num">90</span>;<br><br>
 &nbsp;&nbsp;<span class="cmt">// per-instance naming</span><br>
 &nbsp;&nbsp;<span class="kw3">option</span>.name = <span class="str">"bus_cg_inst"</span>;<br><br>
-&nbsp;&nbsp;<span class="cmt">// auto-bin count (when no explicit bins)</span><br>
+&nbsp;&nbsp;<span class="cmt">// auto-bin count limit</span><br>
 &nbsp;&nbsp;<span class="kw3">option</span>.auto_bin_max = <span class="num">8</span>;<br><br>
-&nbsp;&nbsp;<span class="cmt">// count only first N hits per bin</span><br>
+&nbsp;&nbsp;<span class="cmt">// bin needs N hits to be "covered"</span><br>
 &nbsp;&nbsp;<span class="kw3">option</span>.at_least = <span class="num">10</span>;<br><br>
+&nbsp;&nbsp;<span class="cmt">// per-instance vs type-level</span><br>
+&nbsp;&nbsp;<span class="kw3">type_option</span>.merge_instances = <span class="num">1</span>;<br><br>
 &nbsp;&nbsp;<span class="kw">coverpoint</span> data;<br>
 <span class="kw">endgroup</span>
       </div>
       <div class="lesson-explain">
         <div class="explain-row"><div class="explain-dot"></div><div><strong>option.goal</strong> — what % counts as "passing" for this group</div></div>
-        <div class="explain-row"><div class="explain-dot"></div><div><strong>auto_bin_max</strong> — when no explicit bins, tool creates up to N bins automatically</div></div>
-        <div class="explain-row"><div class="explain-dot"></div><div><strong>option.at_least</strong> — bin is only "covered" after being hit N times, not just once</div></div>
-        <div class="explain-row"><div class="explain-dot"></div><div><strong>type_option</strong> vs <strong>option</strong> — type_option applies to the class, option applies to each instance</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>auto_bin_max</strong> — tool creates up to N bins automatically</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>option.at_least</strong> — bin only "covered" after N hits</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>type_option.merge_instances</strong> — merges coverage from all instances</div></div>
+      </div>
+    </div>
+
+    <!-- LESSON 5 — NEW: Parameterized covergroup -->
+    <div class="lesson-card">
+      <div class="lesson-header">
+        <div class="lesson-num">// LESSON 05</div>
+        <div class="lesson-badge">PARAMETERIZED</div>
+      </div>
+      <div class="lesson-title">Parameterized covergroup</div>
+      <div class="lesson-desc">Pass arguments to a covergroup at instantiation for reusable, configurable coverage.</div>
+      <div class="code-block">
+        <div class="code-label">SV</div>
+<span class="kw">covergroup</span> mem_cg (<span class="kw4">int</span> lo, hi);<br>
+&nbsp;&nbsp;<span class="kw">coverpoint</span> addr {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> range = {[lo:hi]};<br>
+&nbsp;&nbsp;}<br>
+<span class="kw">endgroup</span><br><br>
+<span class="cmt">// Different instances for SRAM vs ROM</span><br>
+mem_cg sram_cg = <span class="kw3">new</span>(<span class="num">0</span>, <span class="num">4095</span>);<br>
+mem_cg rom_cg  = <span class="kw3">new</span>(<span class="num">4096</span>, <span class="num">8191</span>);<br><br>
+<span class="cmt">// With ref argument (live sampling)</span><br>
+<span class="kw">covergroup</span> rw_cg(<span class="kw4">ref</span> <span class="kw4">logic</span> rw_sig);<br>
+&nbsp;&nbsp;<span class="kw">coverpoint</span> rw_sig;<br>
+<span class="kw">endgroup</span><br>
+rw_cg my_cg = <span class="kw3">new</span>(dut.rw);
+      </div>
+      <div class="lesson-explain">
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>Arguments (lo, hi)</strong> — passed at new(), not by name. Values used in bins.</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>ref argument</strong> — passes a live reference; covergroup auto-samples on clock events</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div>Great for reusing the same covergroup across multiple instances of a module</div></div>
+      </div>
+    </div>
+
+    <!-- LESSON 6 — NEW: Conditional coverage -->
+    <div class="lesson-card">
+      <div class="lesson-header">
+        <div class="lesson-num">// LESSON 06</div>
+        <div class="lesson-badge">CONDITIONAL</div>
+      </div>
+      <div class="lesson-title">Conditional & Guarded Coverage</div>
+      <div class="lesson-desc">Use iff to guard sampling — only sample when a condition is true, avoiding spurious hits.</div>
+      <div class="code-block">
+        <div class="code-label">SV</div>
+<span class="kw">covergroup</span> guarded_cg @(<span class="kw3">posedge clk</span>);<br>
+&nbsp;&nbsp;<span class="cmt">// only sample when valid is high</span><br>
+&nbsp;&nbsp;<span class="kw">coverpoint</span> data <span class="kw4">iff</span> (valid) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> zero = {<span class="num">0</span>};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> max  = {<span class="num">8'hFF</span>};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> mid  = {[<span class="num">1</span>:<span class="num">254</span>]};<br>
+&nbsp;&nbsp;}<br><br>
+&nbsp;&nbsp;<span class="cmt">// only in non-reset state</span><br>
+&nbsp;&nbsp;<span class="kw">coverpoint</span> state <span class="kw4">iff</span> (!rst);<br>
+<span class="kw">endgroup</span><br><br>
+<span class="cmt">// Dynamic enable/disable</span><br>
+my_cg.stop();   <span class="cmt">// pause sampling</span><br>
+my_cg.start();  <span class="cmt">// resume sampling</span>
+      </div>
+      <div class="lesson-explain">
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>iff (condition)</strong> — per-coverpoint guard; sampling skipped when false</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div>Prevents coverage inflation from "don't care" states like reset</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>stop()/start()</strong> — runtime control of the entire covergroup</div></div>
       </div>
     </div>
 
@@ -1261,7 +1521,29 @@ cg_inst.<span class="kw5">sample</span>();
   <h2 class="section-title">SystemVerilog<br>Assertions (SVA)</h2>
   <p class="section-sub">SVA lets you formally describe temporal behaviour of your design and automatically check it every clock cycle.</p>
 
-  <!-- Immediate vs Concurrent -->
+  <div class="compare-grid" style="margin-bottom:40px">
+    <div class="compare-card">
+      <div class="compare-head green">⚡ Immediate Assertions</div>
+      <div class="compare-body">
+        <div class="compare-row"><span class="ci">✅</span><span>Procedural — evaluated at a single point in time</span></div>
+        <div class="compare-row"><span class="ci">✅</span><span>No clock required — runs inside always/initial blocks</span></div>
+        <div class="compare-row"><span class="ci">✅</span><span>Simple syntax, great for X-checks</span></div>
+        <div class="compare-row"><span class="ci">⚠️</span><span>Cannot check multi-cycle behaviour</span></div>
+        <div class="compare-row"><span class="ci">⚠️</span><span>Not usable in formal verification flow</span></div>
+      </div>
+    </div>
+    <div class="compare-card">
+      <div class="compare-head blue">🌊 Concurrent Assertions</div>
+      <div class="compare-body">
+        <div class="compare-row"><span class="ci">✅</span><span>Clock-aware — checks properties across multiple cycles</span></div>
+        <div class="compare-row"><span class="ci">✅</span><span>Works in both simulation and formal verification</span></div>
+        <div class="compare-row"><span class="ci">✅</span><span>Can be placed in modules, interfaces, or programs</span></div>
+        <div class="compare-row"><span class="ci">✅</span><span>Supports disable iff for reset handling</span></div>
+        <div class="compare-row"><span class="ci">⚠️</span><span>More complex syntax to learn</span></div>
+      </div>
+    </div>
+  </div>
+
   <div class="lessons-layout">
     <div class="lesson-card">
       <div class="lesson-header">
@@ -1269,27 +1551,30 @@ cg_inst.<span class="kw5">sample</span>();
         <div class="lesson-badge">IMMEDIATE</div>
       </div>
       <div class="lesson-title">Immediate Assertions</div>
-      <div class="lesson-desc">Procedural — checked instantly at the moment of execution, like an if-statement. No clock needed.</div>
+      <div class="lesson-desc">Procedural — checked instantly at the moment of execution. Like an if-statement with error reporting.</div>
       <div class="code-block">
         <div class="code-label">SV</div>
 <span class="kw">always</span> @(<span class="kw3">posedge</span> clk) <span class="kw">begin</span><br>
 &nbsp;&nbsp;<span class="cmt">// basic immediate assert</span><br>
 &nbsp;&nbsp;<span class="kw2">assert</span> (req !== <span class="num">1'bx</span>)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw3">else</span> $<span class="kw5">error</span>(<span class="str">"req is X!"</span>);<br><br>
-&nbsp;&nbsp;<span class="cmt">// with pass action block</span><br>
+&nbsp;&nbsp;<span class="cmt">// with pass block + fail block</span><br>
 &nbsp;&nbsp;<span class="kw2">assert</span> (valid &amp;&amp; data != <span class="num">0</span>) <span class="kw">begin</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;$<span class="kw5">info</span>(<span class="str">"valid data seen"</span>);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;pass_count++;<br>
 &nbsp;&nbsp;<span class="kw">end else begin</span><br>
 &nbsp;&nbsp;&nbsp;&nbsp;$<span class="kw5">error</span>(<span class="str">"data invalid!"</span>);<br>
 &nbsp;&nbsp;<span class="kw">end</span><br><br>
-&nbsp;&nbsp;<span class="cmt">// assume — constrain in formal</span><br>
+&nbsp;&nbsp;<span class="cmt">// deferred immediate (in final region)</span><br>
+&nbsp;&nbsp;<span class="kw2">assert</span> #0 (out == expected)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw3">else</span> $<span class="kw5">error</span>(<span class="str">"mismatch!"</span>);<br><br>
+&nbsp;&nbsp;<span class="cmt">// assume in formal</span><br>
 &nbsp;&nbsp;<span class="kw2">assume</span> (mode inside {<span class="num">0</span>,<span class="num">1</span>,<span class="num">2</span>});<br>
 <span class="kw">end</span>
       </div>
       <div class="lesson-explain">
-        <div class="explain-row"><div class="explain-dot"></div><div><strong>assert</strong> — evaluates expression NOW. Fails immediately if false</div></div>
-        <div class="explain-row"><div class="explain-dot"></div><div>Pass block (before <code>else</code>) runs on success; <code>else</code> block runs on failure</div></div>
-        <div class="explain-row"><div class="explain-dot"></div><div><strong>assume</strong> — same syntax, used in formal verification to constrain inputs</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>assert</strong> — evaluates NOW. Fails immediately if false</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>assert #0</strong> — deferred: evaluates after NBA region, avoids race conditions</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>assume</strong> — in simulation: same as assert. In formal: constrains inputs</div></div>
       </div>
     </div>
 
@@ -1302,7 +1587,7 @@ cg_inst.<span class="kw5">sample</span>();
       <div class="lesson-desc">Clock-aware — checks a temporal property across multiple clock edges. The real power of SVA.</div>
       <div class="code-block">
         <div class="code-label">SV</div>
-<span class="cmt">// Sequence: req HIGH, then ack within 1-3 cycles</span><br>
+<span class="cmt">// Sequence: req HIGH, then ack 1-3 cycles</span><br>
 <span class="kw">sequence</span> req_ack_seq;<br>
 &nbsp;&nbsp;<span class="kw3">@(posedge clk)</span><br>
 &nbsp;&nbsp;req <span class="kw5">##1</span> ack[<span class="op">*</span><span class="num">1</span>:<span class="num">3</span>];<br>
@@ -1313,22 +1598,24 @@ cg_inst.<span class="kw5">sample</span>();
 &nbsp;&nbsp;<span class="kw2">disable iff</span> (rst)<br>
 &nbsp;&nbsp;req <span class="kw5">|=></span> ack;<br>
 <span class="kw">endproperty</span><br><br>
-<span class="cmt">// Bind assertion to property</span><br>
-<span class="kw2">ASSERT_REQ_ACK</span>: <span class="kw">assert</span> <span class="kw3">property</span>(req_ack_p)<br>
-&nbsp;&nbsp;<span class="kw">else</span> $<span class="kw5">error</span>(<span class="str">"ACK missing!"</span>);
+<span class="cmt">// Named binding for easy debug</span><br>
+<span class="kw2">ASSERT_REQ_ACK</span>: <span class="kw">assert property</span>(req_ack_p)<br>
+&nbsp;&nbsp;<span class="kw">else</span> $<span class="kw5">error</span>(<span class="str">"ACK missing after REQ!"</span>);<br><br>
+<span class="cmt">// cover — count how often it happens</span><br>
+<span class="kw2">COV_REQ_ACK</span>: <span class="kw">cover property</span>(req_ack_p);
       </div>
       <div class="lesson-explain">
-        <div class="explain-row"><div class="explain-dot"></div><div><strong>sequence</strong> — defines a temporal pattern using operators like ##, [*], etc.</div></div>
-        <div class="explain-row"><div class="explain-dot"></div><div><strong>property</strong> — wraps a sequence with a clock, disable condition, and implication</div></div>
-        <div class="explain-row"><div class="explain-dot"></div><div><strong>assert property</strong> — checks the property every clock cycle, flags failure</div></div>
-        <div class="explain-row"><div class="explain-dot"></div><div><strong>disable iff</strong> — vacuously passes (assertion disabled) when condition is true</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>sequence</strong> — temporal pattern using ##, [*], etc.</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>property</strong> — wraps sequence with clock + disable + implication</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>assert property</strong> — checks every clock cycle, flags failure</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>disable iff</strong> — vacuously passes when condition is true (e.g. reset)</div></div>
       </div>
     </div>
   </div>
 
-  <!-- WAVEFORM DIAGRAM -->
-  <div class="timeline-wrap" style="margin-top:40px">
-    <div class="timeline-title">Waveform: <code style="color:var(--lime); font-family:'Space Mono',monospace">req |=> ack</code> — Overlapping Implication</div>
+  <!-- WAVEFORM -->
+  <div class="timeline-wrap">
+    <div class="timeline-title">Waveform: <code style="color:var(--lime);font-family:'Space Mono',monospace">req |=> ack</code> — Non-overlapping Implication</div>
     <div class="timing-bar">
       <div class="tick">T0</div><div class="tick">T1</div><div class="tick">T2</div>
       <div class="tick">T3</div><div class="tick">T4</div><div class="tick">T5</div>
@@ -1337,23 +1624,23 @@ cg_inst.<span class="kw5">sample</span>();
     <div class="waveform">
       <div class="wave-row">
         <div class="wave-label">clk</div>
-        <div class="wave-track" style="background:transparent">
-          <svg width="100%" height="28" viewBox="0 0 560 28" preserveAspectRatio="none">
-            <polyline points="0,24 0,4 70,4 70,24 140,24 140,4 210,4 210,24 280,24 280,4 350,4 350,24 420,24 420,4 490,4 490,24 560,24"
-              fill="none" stroke="#c8f135" stroke-width="2"/>
+        <div class="wave-track" style="background:transparent;border:none">
+          <svg width="100%" height="30" viewBox="0 0 560 30" preserveAspectRatio="none">
+            <polyline points="0,26 0,4 70,4 70,26 140,26 140,4 210,4 210,26 280,26 280,4 350,4 350,26 420,26 420,4 490,4 490,26 560,26"
+              fill="none" stroke="#5a9a00" stroke-width="2"/>
           </svg>
         </div>
       </div>
       <div class="wave-row">
         <div class="wave-label">req</div>
         <div class="wave-track">
-          <div class="wave-segment" style="left:0%;width:37.5%;background:rgba(255,255,255,0.08)">
+          <div class="wave-segment" style="left:0%;width:37.5%;background:rgba(90,154,0,0.08)">
             <span class="wave-label-val" style="color:var(--muted)">0</span>
           </div>
-          <div class="wave-segment" style="left:37.5%;width:25%;background:rgba(200,241,53,0.25)">
-            <span class="wave-label-val">1</span>
+          <div class="wave-segment" style="left:37.5%;width:25%;background:rgba(90,154,0,0.3);border:1px solid rgba(90,154,0,0.5)">
+            <span class="wave-label-val" style="color:var(--dark)">1</span>
           </div>
-          <div class="wave-segment" style="left:62.5%;width:37.5%;background:rgba(255,255,255,0.08)">
+          <div class="wave-segment" style="left:62.5%;width:37.5%;background:rgba(90,154,0,0.08)">
             <span class="wave-label-val" style="color:var(--muted)">0</span>
           </div>
         </div>
@@ -1361,13 +1648,13 @@ cg_inst.<span class="kw5">sample</span>();
       <div class="wave-row">
         <div class="wave-label">ack</div>
         <div class="wave-track">
-          <div class="wave-segment" style="left:0%;width:50%;background:rgba(255,255,255,0.08)">
+          <div class="wave-segment" style="left:0%;width:50%;background:rgba(0,122,184,0.08)">
             <span class="wave-label-val" style="color:var(--muted)">0</span>
           </div>
-          <div class="wave-segment" style="left:50%;width:25%;background:rgba(53,212,255,0.3)">
+          <div class="wave-segment" style="left:50%;width:25%;background:rgba(0,122,184,0.3);border:1px solid rgba(0,122,184,0.4)">
             <span class="wave-label-val" style="color:var(--dark)">1</span>
           </div>
-          <div class="wave-segment" style="left:75%;width:25%;background:rgba(255,255,255,0.08)">
+          <div class="wave-segment" style="left:75%;width:25%;background:rgba(0,122,184,0.08)">
             <span class="wave-label-val" style="color:var(--muted)">0</span>
           </div>
         </div>
@@ -1375,23 +1662,46 @@ cg_inst.<span class="kw5">sample</span>();
       <div class="wave-row">
         <div class="wave-label">PASS/FAIL</div>
         <div class="wave-track">
-          <div class="wave-segment" style="left:37.5%;width:12.5%;background:rgba(200,241,53,0.15);border:1px dashed rgba(200,241,53,0.4)">
-            <span class="wave-label-val" style="font-size:8px">EVAL</span>
+          <div class="wave-segment" style="left:37.5%;width:12.5%;background:rgba(200,150,0,0.15);border:1px dashed rgba(200,150,0,0.4)">
+            <span class="wave-label-val" style="font-size:8px;color:#b07800">EVAL</span>
           </div>
-          <div class="wave-segment" style="left:50%;width:25%;background:rgba(100,220,100,0.3)">
-            <span class="wave-label-val" style="font-size:8px">✓ PASS</span>
+          <div class="wave-segment" style="left:50%;width:25%;background:rgba(90,180,90,0.3);border:1px solid rgba(90,180,90,0.5)">
+            <span class="wave-label-val" style="font-size:8px;color:#1a5a1a">✓ PASS</span>
           </div>
         </div>
       </div>
     </div>
-    <div style="margin-top:14px;font-size:12px;color:var(--muted);font-family:'Space Mono',monospace;">
-      req asserted T3 → |=> checks T4 → ack seen T4 → ✅ PASS
+    <div style="margin-top:12px;font-size:12px;color:var(--muted);font-family:'Space Mono',monospace;background:var(--bg2);padding:10px 14px;border-radius:8px;border-left:3px solid var(--lime);">
+      req asserted @T3 → |=> evaluates consequent @T4 → ack=1 @T4 → ✅ PASS
     </div>
   </div>
 
+  <!-- Implication operators explanation -->
+  <div class="compare-grid" style="margin-top:32px">
+    <div class="compare-card">
+      <div class="compare-head green">|-> Overlapping Implication</div>
+      <div class="compare-body">
+        <div style="font-family:'Space Mono',monospace;font-size:13px;color:var(--lime);background:rgba(90,154,0,0.06);padding:12px;border-radius:8px;margin-bottom:14px">a |-> b</div>
+        <div class="compare-row"><span class="ci">🕐</span><span>Consequent (b) checked in the <strong>SAME cycle</strong> the antecedent (a) completes</span></div>
+        <div class="compare-row"><span class="ci">📌</span><span>Equivalent to: if antecedent matches, b must be true RIGHT NOW</span></div>
+        <div class="compare-row"><span class="ci">💡</span><span>Use for: "if valid, then data must be non-zero simultaneously"</span></div>
+        <div class="compare-row"><span class="ci">📝</span><span>Example: <code style="color:var(--lime);font-family:monospace;font-size:11px">valid |-> (data != 0)</code></span></div>
+      </div>
+    </div>
+    <div class="compare-card">
+      <div class="compare-head blue">|=> Non-overlapping Implication</div>
+      <div class="compare-body">
+        <div style="font-family:'Space Mono',monospace;font-size:13px;color:var(--accent2);background:rgba(0,122,184,0.06);padding:12px;border-radius:8px;margin-bottom:14px">a |=> b</div>
+        <div class="compare-row"><span class="ci">🕐</span><span>Consequent (b) checked in the <strong>NEXT cycle</strong> after antecedent completes</span></div>
+        <div class="compare-row"><span class="ci">📌</span><span>Equivalent to: <code style="font-family:monospace;font-size:11px">a ##1 b |-> b</code></span></div>
+        <div class="compare-row"><span class="ci">💡</span><span>Use for: "if req, then ack must come next cycle"</span></div>
+        <div class="compare-row"><span class="ci">📝</span><span>Example: <code style="color:var(--accent2);font-family:monospace;font-size:11px">req |=> ack</code></span></div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ── TEMPORAL OPERATORS ── -->
+<!-- ── MODULE 04: TEMPORAL OPERATORS ── -->
 <div class="lesson-section">
 <div class="lesson-wrap">
   <div class="section-tag">// MODULE 04 — TEMPORAL OPERATORS</div>
@@ -1412,7 +1722,7 @@ cg_inst.<span class="kw5">sample</span>();
         <td><code>##N</code></td>
         <td><code>a ##2 b</code></td>
         <td>b must be true exactly N cycles after a</td>
-        <td><code>req ##1 ack</code> — ack follows req by 1 cycle</td>
+        <td><code>req ##1 ack</code> — ack follows req by exactly 1 cycle</td>
       </tr>
       <tr>
         <td><code>##[m:n]</code></td>
@@ -1424,55 +1734,49 @@ cg_inst.<span class="kw5">sample</span>();
         <td><code>[*N]</code></td>
         <td><code>a[*3]</code></td>
         <td>a is true for exactly N consecutive cycles</td>
-        <td><code>valid[*4]</code> — valid high for 4 cycles</td>
+        <td><code>valid[*4]</code> — valid high for exactly 4 cycles</td>
       </tr>
       <tr>
         <td><code>[*m:n]</code></td>
         <td><code>a[*1:4]</code></td>
         <td>a is true for m to n consecutive cycles</td>
-        <td><code>hold[*2:8]</code></td>
+        <td><code>hold[*2:8]</code> — hold for 2 to 8 cycles</td>
       </tr>
       <tr>
         <td><code>[+]</code></td>
         <td><code>a[+]</code></td>
         <td>a is true for 1 or more cycles (= [*1:$])</td>
-        <td><code>busy[+]</code></td>
+        <td><code>busy[+]</code> — busy for at least 1 cycle</td>
       </tr>
       <tr>
         <td><code>[*]</code></td>
         <td><code>a[*]</code></td>
         <td>a is true for 0 or more cycles (= [*0:$])</td>
-        <td><code>idle[*]</code></td>
+        <td><code>idle[*]</code> — idle for zero or more cycles</td>
       </tr>
       <tr>
         <td><code>[->N]</code></td>
         <td><code>a[->2]</code></td>
         <td>Non-consecutive — a true exactly N times, last occurrence ends match</td>
-        <td><code>req[->3]</code></td>
+        <td><code>req[->3]</code> — req asserted 3 non-consecutive times</td>
       </tr>
       <tr>
         <td><code>[=N]</code></td>
         <td><code>a[=2]</code></td>
         <td>Non-consecutive — a true N times, with anything after last occurrence</td>
-        <td><code>grant[=2]</code></td>
-      </tr>
-      <tr>
-        <td><code>|=></code></td>
-        <td><code>a |=> b</code></td>
-        <td>Overlapping implication — if antecedent matches, check b starting NEXT cycle</td>
-        <td><code>req |=> ack</code></td>
+        <td><code>grant[=2]</code> — grant seen exactly twice</td>
       </tr>
       <tr>
         <td><code>|-></code></td>
         <td><code>a |-> b</code></td>
-        <td>Non-overlapping implication — check b in same cycle antecedent ends</td>
+        <td>Overlapping implication — check b in SAME cycle antecedent ends</td>
         <td><code>valid |-> !err</code></td>
       </tr>
       <tr>
-        <td><code>first_match</code></td>
-        <td><code>first_match(seq)</code></td>
-        <td>Matches on first possible completion of a sequence</td>
-        <td>Useful with multi-length repeats</td>
+        <td><code>|=></code></td>
+        <td><code>a |=> b</code></td>
+        <td>Non-overlapping implication — check b in NEXT cycle</td>
+        <td><code>req |=> ack</code></td>
       </tr>
       <tr>
         <td><code>throughout</code></td>
@@ -1483,7 +1787,7 @@ cg_inst.<span class="kw5">sample</span>();
       <tr>
         <td><code>within</code></td>
         <td><code>s1 within s2</code></td>
-        <td>s1 must occur within the time frame of s2</td>
+        <td>s1 must occur within the timeframe of s2</td>
         <td>Containment checking</td>
       </tr>
       <tr>
@@ -1491,6 +1795,24 @@ cg_inst.<span class="kw5">sample</span>();
         <td><code>s1 intersect s2</code></td>
         <td>Both sequences start and end at same time</td>
         <td>Parallel protocol checking</td>
+      </tr>
+      <tr>
+        <td><code>first_match</code></td>
+        <td><code>first_match(seq)</code></td>
+        <td>Matches on first possible completion of sequence</td>
+        <td>Useful with variable-length repeats</td>
+      </tr>
+      <tr>
+        <td><code>and</code></td>
+        <td><code>s1 and s2</code></td>
+        <td>Both sequences must match (may end at different times)</td>
+        <td>Checking parallel requirements</td>
+      </tr>
+      <tr>
+        <td><code>or</code></td>
+        <td><code>s1 or s2</code></td>
+        <td>At least one sequence must match</td>
+        <td>Alternative protocol flows</td>
       </tr>
     </tbody>
   </table>
@@ -1507,27 +1829,27 @@ cg_inst.<span class="kw5">sample</span>();
     <div class="kw-card">
       <div class="kw-name">assert</div>
       <div class="kw-meaning">Check a condition — fail if false</div>
-      <div class="kw-detail">Used both as immediate (<code>assert(expr)</code>) and concurrent (<code>assert property(p)</code>). Simulation reports error on failure. Named assertions help with debugging.</div>
+      <div class="kw-detail">Used both as immediate (<code style="color:var(--lime);font-family:monospace">assert(expr)</code>) and concurrent (<code style="color:var(--lime);font-family:monospace">assert property(p)</code>). Simulation reports error on failure. Named assertions help with debugging.</div>
     </div>
     <div class="kw-card">
       <div class="kw-name">assume</div>
       <div class="kw-meaning">Constrain inputs for formal verification</div>
-      <div class="kw-detail">In simulation: same as assert. In formal: tells the tool to only consider inputs that satisfy this. Used to restrict state space to legal scenarios.</div>
+      <div class="kw-detail">In simulation: same as assert. In formal: tells the tool to only consider inputs satisfying this. Used to restrict state space to legal scenarios.</div>
     </div>
     <div class="kw-card">
       <div class="kw-name">cover</div>
       <div class="kw-meaning">Measure how often a property/sequence is hit</div>
-      <div class="kw-detail"><code>cover property(p)</code> — records every time the property is true. Unlike assert, failing to hit it doesn't error; it shows up as 0% coverage.</div>
+      <div class="kw-detail"><code style="color:var(--lime);font-family:monospace">cover property(p)</code> records every time property is true. Unlike assert, missing it doesn't error — shows as 0% coverage.</div>
     </div>
     <div class="kw-card">
       <div class="kw-name">property</div>
       <div class="kw-meaning">Named, reusable temporal specification</div>
-      <div class="kw-detail">Wraps a sequence with a clock, optional <code>disable iff</code>, and logical operators. Properties can be composed from other properties. Used with assert/assume/cover.</div>
+      <div class="kw-detail">Wraps a sequence with a clock, optional disable iff, and logical operators. Properties can be composed. Used with assert/assume/cover.</div>
     </div>
     <div class="kw-card">
       <div class="kw-name">sequence</div>
       <div class="kw-meaning">Temporal pattern of signal behaviour</div>
-      <div class="kw-detail">Describes a multi-cycle event pattern using ##, [*], |=>, etc. Sequences can be instantiated inside properties or other sequences. They are the building blocks of SVA.</div>
+      <div class="kw-detail">Describes multi-cycle event pattern using ##, [*], |=>, etc. Sequences can be instantiated inside properties. They're the building blocks of SVA.</div>
     </div>
     <div class="kw-card">
       <div class="kw-name">disable iff</div>
@@ -1537,57 +1859,57 @@ cg_inst.<span class="kw5">sample</span>();
     <div class="kw-card">
       <div class="kw-name">covergroup</div>
       <div class="kw-meaning">User-defined coverage container type</div>
-      <div class="kw-detail">Defined like a class, instantiated with <code>new()</code>. Can be triggered by a clock event or sampled manually. Groups related coverpoints measuring design intent.</div>
+      <div class="kw-detail">Defined like a class, instantiated with <code style="color:var(--lime);font-family:monospace">new()</code>. Can be triggered by clock event or sampled manually. Groups related coverpoints.</div>
     </div>
     <div class="kw-card">
       <div class="kw-name">coverpoint</div>
       <div class="kw-meaning">Signal or expression to be measured</div>
-      <div class="kw-detail">Each coverpoint creates bins automatically (or explicitly). Must be inside a covergroup. Coverage = (bins hit / total bins) × 100%.</div>
+      <div class="kw-detail">Each coverpoint creates bins automatically or explicitly. Must be inside a covergroup. Coverage = (bins hit / total bins) × 100%.</div>
     </div>
     <div class="kw-card">
       <div class="kw-name">bins</div>
       <div class="kw-meaning">Named value bucket inside a coverpoint</div>
-      <div class="kw-detail">A coverpoint is "covered" when all its bins are hit. You can define value bins <code>{0,1,2}</code>, range bins <code>[0:255]</code>, or transition bins <code>(A => B)</code>.</div>
+      <div class="kw-detail">A coverpoint is "covered" when all its bins are hit. Define value bins {0,1,2}, range bins [0:255], or transition bins (A => B).</div>
     </div>
     <div class="kw-card">
       <div class="kw-name">ignore_bins</div>
       <div class="kw-meaning">Exclude values from coverage metric</div>
-      <div class="kw-detail">Values in ignore_bins don't count for or against coverage — they're simply not tracked. Use for reserved/unused encodings that shouldn't affect your metric.</div>
+      <div class="kw-detail">Values in ignore_bins don't count for or against coverage. Use for reserved/unused encodings that shouldn't affect your metric.</div>
     </div>
     <div class="kw-card">
       <div class="kw-name">illegal_bins</div>
       <div class="kw-meaning">Report error if this value is sampled</div>
-      <div class="kw-detail">Stronger than ignore — if a value matching illegal_bins is sampled, the simulator raises an error. Use to catch protocol violations like reserved opcode usage.</div>
+      <div class="kw-detail">If a value matching illegal_bins is sampled, the simulator raises an error. Use to catch protocol violations like reserved opcode usage.</div>
     </div>
     <div class="kw-card">
       <div class="kw-name">cross</div>
       <div class="kw-meaning">Cross-product of two or more coverpoints</div>
-      <div class="kw-detail">Creates N×M bins for every combination. Ensures all combinations of two signals are tested — catches corner cases that per-signal coverage misses entirely.</div>
+      <div class="kw-detail">Creates N×M bins for every combination. Ensures all combinations are tested — catches corner cases that per-signal coverage misses entirely.</div>
     </div>
   </div>
 
-  <!-- Advanced keywords -->
+  <!-- Advanced keywords table -->
   <div style="margin-top:48px">
-    <h3 style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;margin-bottom:24px">Advanced SVA Keywords</h3>
+    <h3 style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:24px;color:var(--dark)">Advanced SVA System Functions</h3>
 
     <table class="ref-table">
       <thead>
         <tr>
           <th>KEYWORD</th>
           <th>CATEGORY</th>
-          <th>DESCRIPTION &amp; EXAMPLE</th>
+          <th>DESCRIPTION & EXAMPLE</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td><code>$rose(sig)</code></td>
           <td>Sampled Value Fn</td>
-          <td>True when sig transitions from 0 to 1. <code>$rose(req) |=> ack</code></td>
+          <td>True when sig transitions 0→1. <code>$rose(req) |=> ack</code></td>
         </tr>
         <tr>
           <td><code>$fell(sig)</code></td>
           <td>Sampled Value Fn</td>
-          <td>True when sig transitions from 1 to 0.</td>
+          <td>True when sig transitions 1→0. Useful for detecting deassertion.</td>
         </tr>
         <tr>
           <td><code>$stable(sig)</code></td>
@@ -1597,84 +1919,151 @@ cg_inst.<span class="kw5">sample</span>();
         <tr>
           <td><code>$past(sig, N)</code></td>
           <td>Sampled Value Fn</td>
-          <td>Returns value of sig N cycles ago. Default N=1. <code>$past(data) == data</code></td>
+          <td>Returns value of sig N cycles ago. Default N=1. <code>$past(data,2) == data</code></td>
         </tr>
         <tr>
           <td><code>$onehot(bus)</code></td>
           <td>System Function</td>
-          <td>True when exactly one bit of bus is high. Great for grant bus checks.</td>
+          <td>True when exactly one bit is high. Great for grant bus checks: <code>assert($onehot(grant))</code></td>
+        </tr>
+        <tr>
+          <td><code>$onehot0(bus)</code></td>
+          <td>System Function</td>
+          <td>True when at most one bit is high (all zeros also passes).</td>
         </tr>
         <tr>
           <td><code>$countones(bus)</code></td>
           <td>System Function</td>
-          <td>Returns number of 1-bits in bus.</td>
+          <td>Returns number of 1-bits in bus. Use in constraints: <code>$countones(sel) == 1</code></td>
+        </tr>
+        <tr>
+          <td><code>$isunknown(expr)</code></td>
+          <td>System Function</td>
+          <td>True if any bit is X or Z. Good for data bus X-checks.</td>
         </tr>
         <tr>
           <td><code>not property(p)</code></td>
           <td>Property Operator</td>
-          <td>Inverts a property. <code>assert property(not (a ##1 b))</code> — a followed by b must NOT happen.</td>
+          <td>Inverts a property. <code>assert property(not (a ##1 b))</code> — pattern must NOT happen.</td>
         </tr>
         <tr>
           <td><code>s_eventually</code></td>
           <td>LTL Operator</td>
-          <td>Strong eventually — the property MUST occur at some point. Used in formal.</td>
+          <td>Strong eventually — the property MUST occur at some future point. Used in formal.</td>
+        </tr>
+        <tr>
+          <td><code>s_always</code></td>
+          <td>LTL Operator</td>
+          <td>Strong always — property must hold for all time. Used in formal verification.</td>
         </tr>
         <tr>
           <td><code>bind</code></td>
           <td>Instantiation</td>
-          <td>Attaches assertions to a module without modifying it. <code>bind dut my_sva_module inst(.*)</code></td>
+          <td>Attaches assertions to a module without modifying source. <code>bind dut my_sva inst(.*)</code></td>
+        </tr>
+        <tr>
+          <td><code>restrict</code></td>
+          <td>Formal</td>
+          <td>Like assume but only in formal — restricts the state space to valid states.</td>
         </tr>
       </tbody>
     </table>
   </div>
 </section>
 
-<!-- ── FULL EXAMPLES ── -->
+<!-- ── MODULE 06: PROTOCOL EXAMPLES ── -->
 <div class="lesson-section">
-<div class="lesson-wrap">
+<div class="lesson-wrap" id="examples2">
   <div class="section-tag">// MODULE 06 — COMPLETE PROTOCOL EXAMPLES</div>
-  <h2 class="section-title" style="margin-bottom:48px">Real-World Examples</h2>
+  <h2 class="section-title" style="margin-bottom:48px">Real-World Protocol Examples</h2>
 
-  <!-- Example 1 -->
+  <!-- Example 1: AXI -->
   <div class="full-lesson">
     <div class="fl-header">
       <div class="fl-num">01</div>
-      <div class="fl-title">AXI Handshake Assertion</div>
+      <div class="fl-title">AXI4 Write Channel Assertions</div>
     </div>
-    <div class="fl-body">AXI spec: once VALID is asserted, it must stay high until the handshake (VALID &amp; READY). Also, READY response must come within a max number of cycles.</div>
-    <div class="code-block" style="border-radius:12px;border:1px solid var(--border)">
-      <div class="code-label">PROTOCOL EXAMPLE</div>
-<span class="cmt">// Rule 1: VALID must not deassert before READY</span><br>
-<span class="kw">property</span> valid_stable;<br>
+    <div class="fl-body">AXI spec: once VALID is asserted, it must stay high until handshake (VALID & READY). READY must come within a maximum number of cycles.</div>
+    <div class="code-block" style="border-radius:14px;border:1.5px solid var(--border)">
+      <div class="code-label">AXI EXAMPLE</div>
+<span class="cmt">// Rule 1: AWVALID must not deassert before AWREADY</span><br>
+<span class="kw">property</span> awvalid_stable;<br>
 &nbsp;&nbsp;<span class="kw3">@(posedge clk) disable iff</span>(rst)<br>
-&nbsp;&nbsp;(VALID &amp;&amp; !READY) <span class="kw5">|-></span> <span class="kw5">##1</span> VALID;<br>
+&nbsp;&nbsp;(AWVALID &amp;&amp; !AWREADY) <span class="kw5">|-></span> <span class="kw5">##1</span> AWVALID;<br>
 <span class="kw">endproperty</span><br>
-<span class="kw2">AXI_VALID_STABLE</span>: <span class="kw">assert property</span>(valid_stable);<br><br>
+<span class="kw2">AXI_AWVALID_STABLE</span>: <span class="kw">assert property</span>(awvalid_stable);<br><br>
 
-<span class="cmt">// Rule 2: READY must come within 16 cycles of VALID</span><br>
-<span class="kw">property</span> ready_timeout;<br>
+<span class="cmt">// Rule 2: AWREADY must come within 16 cycles</span><br>
+<span class="kw">property</span> awready_timeout;<br>
 &nbsp;&nbsp;<span class="kw3">@(posedge clk) disable iff</span>(rst)<br>
-&nbsp;&nbsp;VALID <span class="kw5">|=></span> READY[<span class="op">->1</span>] within <span class="num">##[1:16]</span> VALID;<br>
+&nbsp;&nbsp;$<span class="kw4">rose</span>(AWVALID) <span class="kw5">|=></span> ##[<span class="num">0</span>:<span class="num">15</span>] (AWVALID &amp;&amp; AWREADY);<br>
 <span class="kw">endproperty</span><br>
-<span class="kw2">AXI_READY_TIMEOUT</span>: <span class="kw">assert property</span>(ready_timeout);<br><br>
+<span class="kw2">AXI_AWREADY_TIMEOUT</span>: <span class="kw">assert property</span>(awready_timeout);<br><br>
 
-<span class="cmt">// Cover: measure successful handshakes</span><br>
-<span class="kw2">AXI_HANDSHAKE_HIT</span>: <span class="kw">cover property</span>(<br>
-&nbsp;&nbsp;<span class="kw3">@(posedge clk)</span> VALID &amp;&amp; READY<br>
+<span class="cmt">// Rule 3: WDATA stable while WVALID asserted</span><br>
+<span class="kw">property</span> wdata_stable;<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk) disable iff</span>(rst)<br>
+&nbsp;&nbsp;(WVALID &amp;&amp; !WREADY) <span class="kw5">|-></span> ##<span class="num">1</span> $<span class="kw4">stable</span>(WDATA);<br>
+<span class="kw">endproperty</span><br>
+<span class="kw2">AXI_WDATA_STABLE</span>: <span class="kw">assert property</span>(wdata_stable);<br><br>
+
+<span class="cmt">// Cover: successful write handshake</span><br>
+<span class="kw2">AXI_WRITE_DONE</span>: <span class="kw">cover property</span>(<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk)</span> AWVALID &amp;&amp; AWREADY &amp;&amp; WVALID &amp;&amp; WREADY<br>
 );
     </div>
   </div>
 
-  <!-- Example 2 -->
+  <!-- Example 2: FIFO -->
   <div class="full-lesson">
     <div class="fl-header">
       <div class="fl-num">02</div>
-      <div class="fl-title">Complete Functional Coverage: AXI Transaction</div>
+      <div class="fl-title">FIFO Protocol Assertions</div>
+    </div>
+    <div class="fl-body">A FIFO must not be written when full, not read when empty, and depth must track writes minus reads correctly.</div>
+    <div class="code-block" style="border-radius:14px;border:1.5px solid var(--border)">
+      <div class="code-label">FIFO EXAMPLE</div>
+<span class="cmt">// No write when full</span><br>
+<span class="kw">property</span> no_overflow;<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk) disable iff</span>(rst)<br>
+&nbsp;&nbsp;!(wr_en &amp;&amp; full);<br>
+<span class="kw">endproperty</span><br>
+<span class="kw2">FIFO_NO_OVERFLOW</span>: <span class="kw">assert property</span>(no_overflow)<br>
+&nbsp;&nbsp;<span class="kw">else</span> $<span class="kw5">fatal</span>(<span class="num">1</span>, <span class="str">"FIFO overflow detected!"</span>);<br><br>
+
+<span class="cmt">// No read when empty</span><br>
+<span class="kw">property</span> no_underflow;<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk) disable iff</span>(rst)<br>
+&nbsp;&nbsp;!(rd_en &amp;&amp; empty);<br>
+<span class="kw">endproperty</span><br>
+<span class="kw2">FIFO_NO_UNDERFLOW</span>: <span class="kw">assert property</span>(no_underflow);<br><br>
+
+<span class="cmt">// After write, not_empty must be true</span><br>
+<span class="kw">property</span> write_makes_nonempty;<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk) disable iff</span>(rst)<br>
+&nbsp;&nbsp;(wr_en &amp;&amp; !rd_en) <span class="kw5">|=></span> !empty;<br>
+<span class="kw">endproperty</span><br>
+<span class="kw2">FIFO_WRITE_NONEMPTY</span>: <span class="kw">assert property</span>(write_makes_nonempty);<br><br>
+
+<span class="cmt">// Full stays stable if no read/write</span><br>
+<span class="kw">property</span> full_stable;<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk)</span><br>
+&nbsp;&nbsp;(full &amp;&amp; !rd_en &amp;&amp; !wr_en) <span class="kw5">|-></span> ##<span class="num">1</span> full;<br>
+<span class="kw">endproperty</span><br>
+<span class="kw2">FIFO_FULL_STABLE</span>: <span class="kw">assert property</span>(full_stable);
+    </div>
+  </div>
+
+  <!-- Example 3: AXI Functional Coverage -->
+  <div class="full-lesson">
+    <div class="fl-header">
+      <div class="fl-num">03</div>
+      <div class="fl-title">AXI Transaction Functional Coverage</div>
     </div>
     <div class="fl-body">Capture all meaningful combinations of AXI transaction attributes — burst type, size, length — to ensure comprehensive protocol coverage.</div>
-    <div class="code-block" style="border-radius:12px;border:1px solid var(--border)">
+    <div class="code-block" style="border-radius:14px;border:1.5px solid var(--border)">
       <div class="code-label">FUNCTIONAL COVERAGE</div>
-<span class="kw">covergroup</span> axi_cg @(<span class="kw3">posedge</span> clk);<br><br>
+<span class="kw">covergroup</span> axi_cg @(<span class="kw3">posedge</span> clk <span class="kw4">iff</span> (AWVALID &amp;&amp; AWREADY));<br><br>
 
 &nbsp;&nbsp;<span class="cmt">// Burst type: FIXED, INCR, WRAP</span><br>
 &nbsp;&nbsp;cp_burst: <span class="kw">coverpoint</span> AWBURST {<br>
@@ -1685,24 +2074,101 @@ cg_inst.<span class="kw5">sample</span>();
 &nbsp;&nbsp;}<br><br>
 
 &nbsp;&nbsp;<span class="cmt">// Burst size: 1,2,4,8,16,32,64,128 bytes</span><br>
-&nbsp;&nbsp;cp_size: <span class="kw">coverpoint</span> AWSIZE;<br><br>
-
-&nbsp;&nbsp;<span class="cmt">// Burst length: 1-16 for FIXED, 1-256 for INCR</span><br>
-&nbsp;&nbsp;cp_len: <span class="kw">coverpoint</span> AWLEN {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> len1   = {<span class="num">0</span>};<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> len4   = {<span class="num">3</span>};<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> len16  = {<span class="num">15</span>};<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> other  = default;<br>
+&nbsp;&nbsp;cp_size: <span class="kw">coverpoint</span> AWSIZE {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> byte1   = {<span class="num">3'd0</span>};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> byte2   = {<span class="num">3'd1</span>};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> byte4   = {<span class="num">3'd2</span>};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> byte8   = {<span class="num">3'd3</span>};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> byte16  = {<span class="num">3'd4</span>};<br>
 &nbsp;&nbsp;}<br><br>
 
-&nbsp;&nbsp;<span class="cmt">// Cross: all burst_type x size combos</span><br>
+&nbsp;&nbsp;<span class="cmt">// Burst length buckets</span><br>
+&nbsp;&nbsp;cp_len: <span class="kw">coverpoint</span> AWLEN {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> len1   = {<span class="num">8'd0</span>};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> len4   = {<span class="num">8'd3</span>};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> len8   = {<span class="num">8'd7</span>};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> len16  = {<span class="num">8'd15</span>};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> long   = {[<span class="num">16</span>:<span class="num">255</span>]};<br>
+&nbsp;&nbsp;}<br><br>
+
+&nbsp;&nbsp;<span class="cmt">// Cross: all burst_type x size combos (15 combos)</span><br>
 &nbsp;&nbsp;<span class="kw">cross</span> cp_burst, cp_size, cp_len;<br><br>
 
-<span class="kw">endgroup</span><br><br>
-<span class="cmt">// Instantiate in UVM monitor</span><br>
-axi_cg cg = <span class="kw3">new</span>();<br>
-<span class="cmt">// In monitor write_item task:</span><br>
-cg.<span class="kw5">sample</span>();
+<span class="kw">endgroup</span>
+    </div>
+  </div>
+
+  <!-- Example 4: SPI Coverage -->
+  <div class="full-lesson">
+    <div class="fl-header">
+      <div class="fl-num">04</div>
+      <div class="fl-title">SPI Bus Assertions</div>
+    </div>
+    <div class="fl-body">SPI protocol requires CS to be asserted before SCLK, data to be stable at sample edge, and CS to deassert after transfer completes.</div>
+    <div class="code-block" style="border-radius:14px;border:1.5px solid var(--border)">
+      <div class="code-label">SPI EXAMPLE</div>
+<span class="cmt">// CS must be low before first SCLK edge</span><br>
+<span class="kw">property</span> cs_before_sclk;<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge sys_clk)</span><br>
+&nbsp;&nbsp;$<span class="kw4">rose</span>(sclk) <span class="kw5">|-></span> !cs_n;<br>
+<span class="kw">endproperty</span><br>
+<span class="kw2">SPI_CS_BEFORE_SCLK</span>: <span class="kw">assert property</span>(cs_before_sclk);<br><br>
+
+<span class="cmt">// MOSI must be stable during SCLK high (sample at posedge)</span><br>
+<span class="kw">sequence</span> mosi_stable_seq;<br>
+&nbsp;&nbsp;$<span class="kw4">rose</span>(sclk) <span class="kw5">##[0:1]</span> $<span class="kw4">stable</span>(mosi);<br>
+<span class="kw">endsequence</span><br><br>
+
+<span class="cmt">// After 8 SCLK cycles, CS should deassert</span><br>
+<span class="kw">property</span> transfer_complete;<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge sys_clk)</span><br>
+&nbsp;&nbsp;$<span class="kw4">rose</span>(cs_n) <span class="kw5">|-></span> $<span class="kw4">past</span>(sclk_count) == <span class="num">8</span>;<br>
+<span class="kw">endproperty</span><br>
+<span class="kw2">SPI_FULL_BYTE</span>: <span class="kw">assert property</span>(transfer_complete);<br><br>
+
+<span class="cmt">// Cover: back-to-back transfers</span><br>
+<span class="kw2">SPI_BACK2BACK</span>: <span class="kw">cover property</span>(<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge sys_clk)</span> $<span class="kw4">rose</span>(cs_n) <span class="kw5">##[1:3]</span> $<span class="kw4">fell</span>(cs_n)<br>
+);
+    </div>
+  </div>
+
+  <!-- Example 5: Reset Sequencing -->
+  <div class="full-lesson">
+    <div class="fl-header">
+      <div class="fl-num">05</div>
+      <div class="fl-title">Reset Sequencing & Power-Up</div>
+    </div>
+    <div class="fl-body">Ensure reset is held for minimum duration, that outputs are de-asserted during reset, and that the FSM reaches IDLE state after reset release.</div>
+    <div class="code-block" style="border-radius:14px;border:1.5px solid var(--border)">
+      <div class="code-label">RESET EXAMPLE</div>
+<span class="cmt">// Reset held for at least 4 cycles</span><br>
+<span class="kw">property</span> rst_min_width;<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk)</span><br>
+&nbsp;&nbsp;$<span class="kw4">rose</span>(rst) <span class="kw5">|=></span> rst[<span class="op">*</span><span class="num">4</span>];<br>
+<span class="kw">endproperty</span><br>
+<span class="kw2">RST_MIN_WIDTH</span>: <span class="kw">assert property</span>(rst_min_width);<br><br>
+
+<span class="cmt">// During reset, valid_out must be 0</span><br>
+<span class="kw">property</span> out_inactive_in_rst;<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk)</span><br>
+&nbsp;&nbsp;rst <span class="kw5">|-></span> !valid_out;<br>
+<span class="kw">endproperty</span><br>
+<span class="kw2">RST_OUT_INACTIVE</span>: <span class="kw">assert property</span>(out_inactive_in_rst);<br><br>
+
+<span class="cmt">// After reset deasserts, FSM must be IDLE within 2 cycles</span><br>
+<span class="kw">property</span> fsm_idle_after_rst;<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk)</span><br>
+&nbsp;&nbsp;$<span class="kw4">fell</span>(rst) <span class="kw5">|=></span> ##[<span class="num">1</span>:<span class="num">2</span>] (state == IDLE);<br>
+<span class="kw">endproperty</span><br>
+<span class="kw2">FSM_IDLE_AFTER_RST</span>: <span class="kw">assert property</span>(fsm_idle_after_rst);<br><br>
+
+<span class="cmt">// No X-values on output bus after reset</span><br>
+<span class="kw">property</span> no_x_after_rst;<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk)</span><br>
+&nbsp;&nbsp;!rst <span class="kw5">|-></span> !$<span class="kw4">isunknown</span>(data_out);<br>
+<span class="kw">endproperty</span><br>
+<span class="kw2">NO_X_DATA</span>: <span class="kw">assert property</span>(no_x_after_rst);
     </div>
   </div>
 
@@ -1710,7 +2176,7 @@ cg.<span class="kw5">sample</span>();
   <div class="instructor-callout">
     <div class="callout-avatar">
       <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="32" cy="32" r="32" fill="#131f08"/>
+        <circle cx="32" cy="32" r="32" fill="#e8f8a0"/>
         <ellipse cx="32" cy="28" rx="14" ry="16" fill="#ffd4a3"/>
         <rect x="18" y="20" width="28" height="14" rx="7" fill="#1a0a00"/>
         <circle cx="25" cy="30" r="4" fill="none" stroke="#555" stroke-width="1.5"/>
@@ -1719,14 +2185,14 @@ cg.<span class="kw5">sample</span>();
         <circle cx="25" cy="30" r="2" fill="#1a3a50"/>
         <circle cx="39" cy="30" r="2" fill="#1a3a50"/>
         <path d="M26 37 Q32 43 38 37" fill="none" stroke="#c0704a" stroke-width="1.5" stroke-linecap="round"/>
-        <rect x="18" y="44" width="28" height="18" rx="8" fill="#1e3a10"/>
-        <rect x="22" y="48" width="8" height="5" rx="2" fill="#c8f135"/>
+        <rect x="18" y="44" width="28" height="18" rx="8" fill="#1e4a10"/>
+        <rect x="22" y="48" width="8" height="5" rx="2" fill="#5a9a00"/>
       </svg>
     </div>
     <div class="callout-content">
       <div class="callout-from">// INTERVIEW TIP 🎯</div>
       <div class="callout-text">
-        At AMD/Qualcomm/Intel interviews, they'll ask: <strong style="color:var(--lime)">"What's the difference between |-> and |=>"</strong>. Answer: <code style="color:var(--accent2)">|-></code> is <em>overlapping</em> — the consequent is checked in the SAME cycle the antecedent ends. <code style="color:var(--lime)">|=></code> is <em>non-overlapping</em> — consequent checked in the NEXT cycle. <code>a |=> b</code> is equivalent to <code>a ##1 b |-> b</code>.
+        At AMD/Qualcomm/Intel interviews, they'll ask: <strong>"What's the difference between |-> and |=>"</strong>. Answer: <code style="color:var(--lime);font-family:monospace;background:rgba(90,154,0,0.1);padding:1px 5px;border-radius:3px">|-></code> is <em>overlapping</em> — consequent checked in the SAME cycle the antecedent ends. <code style="color:var(--accent2);font-family:monospace;background:rgba(0,122,184,0.08);padding:1px 5px;border-radius:3px">|=></code> is <em>non-overlapping</em> — consequent checked in the NEXT cycle. <code style="font-family:monospace">a |=> b</code> is equivalent to <code style="font-family:monospace">a ##1 b |-> b</code>.
       </div>
     </div>
   </div>
@@ -1734,59 +2200,679 @@ cg.<span class="kw5">sample</span>();
 </div>
 </div>
 
+<!-- ── MODULE 07: ADVANCED ── -->
+<section id="advanced" class="anchor">
+  <div class="section-tag">// MODULE 07 — ADVANCED TOPICS</div>
+  <h2 class="section-title">UVM Integration &amp;<br>Formal Verification</h2>
+
+  <div class="lessons-layout">
+
+    <!-- UVM Coverage -->
+    <div class="lesson-card">
+      <div class="lesson-header">
+        <div class="lesson-num">// ADVANCED 01</div>
+        <div class="lesson-badge">UVM</div>
+      </div>
+      <div class="lesson-title">Coverage in UVM Monitor</div>
+      <div class="lesson-desc">Embed covergroups inside UVM monitors. Call sample() from the write() task to capture every transaction.</div>
+      <div class="code-block">
+        <div class="code-label">UVM</div>
+<span class="kw">class</span> bus_monitor <span class="kw">extends</span> uvm_monitor;<br>
+&nbsp;&nbsp;<span class="cmt">// Define covergroup inside class</span><br>
+&nbsp;&nbsp;<span class="kw">covergroup</span> bus_cg;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cp_op: <span class="kw">coverpoint</span> trans.op {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> rd = {READ};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> wr = {WRITE};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cp_sz: <span class="kw">coverpoint</span> trans.size;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">cross</span> cp_op, cp_sz;<br>
+&nbsp;&nbsp;<span class="kw">endgroup</span><br><br>
+&nbsp;&nbsp;bus_transaction trans;<br><br>
+&nbsp;&nbsp;<span class="kw">function new</span>(...);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw3">super</span>.new(...);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt">// Instantiate with ref to trans</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;bus_cg = <span class="kw3">new</span>();<br>
+&nbsp;&nbsp;<span class="kw">endfunction</span><br><br>
+&nbsp;&nbsp;<span class="kw">virtual task</span> run_phase(...);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">forever begin</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;collect_transaction(trans);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bus_cg.<span class="kw5">sample</span>(); <span class="cmt">// sample!</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">end</span><br>
+&nbsp;&nbsp;<span class="kw">endtask</span><br>
+<span class="kw">endclass</span>
+      </div>
+      <div class="lesson-explain">
+        <div class="explain-row"><div class="explain-dot"></div><div>Define covergroup inside the monitor class for clean encapsulation</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div>Call <strong>sample()</strong> after every transaction is collected in run_phase</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div>Use the transaction object's fields directly in coverpoints</div></div>
+      </div>
+    </div>
+
+    <!-- Formal Verification -->
+    <div class="lesson-card">
+      <div class="lesson-header">
+        <div class="lesson-num">// ADVANCED 02</div>
+        <div class="lesson-badge">FORMAL</div>
+      </div>
+      <div class="lesson-title">Formal Verification with SVA</div>
+      <div class="lesson-desc">Use assume to constrain inputs, assert to check properties, and cover to prove reachability.</div>
+      <div class="code-block">
+        <div class="code-label">FORMAL</div>
+<span class="kw">module</span> arb_formal (<span class="kw4">input</span> clk, rst, req0, req1,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">output</span> gnt0, gnt1);<br><br>
+
+<span class="cmt">// Assumptions: constrain legal inputs</span><br>
+<span class="kw2">A_NO_SIMULTANEOUS_REQ</span>: <span class="kw">assume property</span>(<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk)</span> !(req0 &amp;&amp; req1)<br>
+);<br><br>
+
+<span class="cmt">// Assertions: prove these always hold</span><br>
+<span class="kw2">P_MUTUAL_EXCLUSION</span>: <span class="kw">assert property</span>(<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk) disable iff</span>(rst)<br>
+&nbsp;&nbsp;!(gnt0 &amp;&amp; gnt1)  <span class="cmt">// never both grant</span><br>
+);<br><br>
+
+<span class="kw2">P_GRANT_IMPLIES_REQ</span>: <span class="kw">assert property</span>(<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk)</span><br>
+&nbsp;&nbsp;gnt0 <span class="kw5">|-></span> req0<br>
+);<br><br>
+
+<span class="cmt">// Reachability: prove grant is achievable</span><br>
+<span class="kw2">C_GNT0_REACHABLE</span>: <span class="kw">cover property</span>(<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk)</span> gnt0<br>
+);<br>
+<span class="kw2">C_GNT1_REACHABLE</span>: <span class="kw">cover property</span>(<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk)</span> gnt1<br>
+);<br>
+<span class="kw">endmodule</span>
+      </div>
+      <div class="lesson-explain">
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>assume</strong> — tells formal tool: "only explore states satisfying this"</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>assert</strong> — formal exhaustively proves this holds for ALL reachable states</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>cover</strong> — formal proves the state/scenario IS reachable (not vacuously dead)</div></div>
+      </div>
+    </div>
+
+    <!-- bind assertion -->
+    <div class="lesson-card">
+      <div class="lesson-header">
+        <div class="lesson-num">// ADVANCED 03</div>
+        <div class="lesson-badge">BIND</div>
+      </div>
+      <div class="lesson-title">bind — Non-intrusive SVA</div>
+      <div class="lesson-desc">Attach assertions to a module without modifying its source. Essential for IP and third-party blocks.</div>
+      <div class="code-block">
+        <div class="code-label">BIND</div>
+<span class="cmt">// Separate SVA module for the DUT</span><br>
+<span class="kw">module</span> fifo_sva (<br>
+&nbsp;&nbsp;<span class="kw4">input</span> logic clk, rst,<br>
+&nbsp;&nbsp;<span class="kw4">input</span> logic wr_en, rd_en,<br>
+&nbsp;&nbsp;<span class="kw4">input</span> logic full, empty<br>
+);<br><br>
+
+&nbsp;&nbsp;<span class="kw">property</span> no_ovf;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw3">@(posedge clk) disable iff</span>(rst)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;!(wr_en &amp;&amp; full);<br>
+&nbsp;&nbsp;<span class="kw">endproperty</span><br><br>
+
+&nbsp;&nbsp;<span class="kw2">FIFO_NO_OVF</span>: <span class="kw">assert property</span>(no_ovf);<br><br>
+
+<span class="kw">endmodule</span><br><br>
+
+<span class="cmt">// Bind to the actual DUT — no DUT edits!</span><br>
+<span class="kw">bind</span> fifo_dut fifo_sva fifo_sva_inst (<br>
+&nbsp;&nbsp;.clk(clk),<br>
+&nbsp;&nbsp;.rst(rst),<br>
+&nbsp;&nbsp;.wr_en(wr_en),<br>
+&nbsp;&nbsp;.rd_en(rd_en),<br>
+&nbsp;&nbsp;.full(full),<br>
+&nbsp;&nbsp;.empty(empty)<br>
+);
+      </div>
+      <div class="lesson-explain">
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>bind</strong> — instantiates fifo_sva inside fifo_dut's scope without touching fifo_dut source</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div>The SVA module sees all DUT signals as if it were instantiated inside</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div>Industry best practice for IP-level verification and third-party blocks</div></div>
+      </div>
+    </div>
+
+    <!-- sequence reuse -->
+    <div class="lesson-card">
+      <div class="lesson-header">
+        <div class="lesson-num">// ADVANCED 04</div>
+        <div class="lesson-badge">SEQUENCE REUSE</div>
+      </div>
+      <div class="lesson-title">Reusable Sequence Library</div>
+      <div class="lesson-desc">Build a library of named sequences that can be composed into larger properties for any protocol.</div>
+      <div class="code-block">
+        <div class="code-label">SEQUENCE LIB</div>
+<span class="cmt">// Generic handshake sequence</span><br>
+<span class="kw">sequence</span> handshake(valid, ready, N);<br>
+&nbsp;&nbsp;valid &amp;&amp; !ready <span class="kw5">##[1:N]</span> valid &amp;&amp; ready;<br>
+<span class="kw">endsequence</span><br><br>
+
+<span class="cmt">// Pulse: signal high for exactly N cycles</span><br>
+<span class="kw">sequence</span> pulse(sig, N);<br>
+&nbsp;&nbsp;$<span class="kw4">rose</span>(sig) <span class="kw5">##0</span> sig[<span class="op">*</span>N] <span class="kw5">##1</span> !sig;<br>
+<span class="kw">endsequence</span><br><br>
+
+<span class="cmt">// Use in properties</span><br>
+<span class="kw">property</span> write_handshake_p;<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk)</span><br>
+&nbsp;&nbsp;handshake(WVALID, WREADY, <span class="num">16</span>);<br>
+<span class="kw">endproperty</span><br><br>
+
+<span class="kw">property</span> cs_pulse_p;<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk)</span><br>
+&nbsp;&nbsp;pulse(!cs_n, <span class="num">8</span>);<br>
+<span class="kw">endproperty</span><br><br>
+
+<span class="kw2">WRITE_HS</span>: <span class="kw">assert property</span>(write_handshake_p);<br>
+<span class="kw2">CS_PULSE</span>:  <span class="kw">assert property</span>(cs_pulse_p);
+      </div>
+      <div class="lesson-explain">
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>Sequence arguments</strong> — pass signals and constants as parameters</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div>Build a reusable protocol library (handshake, pulse, toggle, etc.)</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div>Compose sequences into larger properties for complex multi-step checks</div></div>
+      </div>
+    </div>
+
+    <!-- FSM Coverage -->
+    <div class="lesson-card">
+      <div class="lesson-header">
+        <div class="lesson-num">// ADVANCED 05</div>
+        <div class="lesson-badge">FSM COVERAGE</div>
+      </div>
+      <div class="lesson-title">FSM State & Transition Coverage</div>
+      <div class="lesson-desc">Track every state and every transition in your FSM — both code coverage (tool-auto) and functional (user-written).</div>
+      <div class="code-block">
+        <div class="code-label">FSM COVERAGE</div>
+<span class="cmt">// FSM states enum</span><br>
+<span class="kw">typedef enum</span> <span class="kw4">logic</span> [<span class="num">2:0</span>] {<br>
+&nbsp;&nbsp;IDLE=<span class="num">0</span>, REQ=<span class="num">1</span>, WAIT=<span class="num">2</span>,<br>
+&nbsp;&nbsp;ACK=<span class="num">3</span>, DONE=<span class="num">4</span><br>
+} state_e;<br><br>
+
+<span class="kw">covergroup</span> fsm_cg @(<span class="kw3">posedge clk</span>);<br>
+&nbsp;&nbsp;<span class="cmt">// All states visited?</span><br>
+&nbsp;&nbsp;cp_state: <span class="kw">coverpoint</span> state {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> idle = {IDLE};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> req  = {REQ};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> wait_= {WAIT};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> ack  = {ACK};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> done = {DONE};<br>
+&nbsp;&nbsp;}<br><br>
+&nbsp;&nbsp;<span class="cmt">// All transitions visited?</span><br>
+&nbsp;&nbsp;cp_trans: <span class="kw">coverpoint</span> state {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> idle2req  = (IDLE => REQ);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> req2wait  = (REQ => WAIT);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> wait2ack  = (WAIT => ACK);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> ack2done  = (ACK => DONE);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> done2idle = (DONE => IDLE);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> wait2idle = (WAIT => IDLE); <span class="cmt">// timeout</span><br>
+&nbsp;&nbsp;}<br>
+<span class="kw">endgroup</span>
+      </div>
+      <div class="lesson-explain">
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>State coverage</strong> — ensures every FSM state is visited at least once</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>Transition coverage</strong> — uses => syntax to track state-to-state transitions</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div>Tools also provide automatic FSM coverage — verify both complement each other</div></div>
+      </div>
+    </div>
+
+    <!-- Coverage callbacks -->
+    <div class="lesson-card">
+      <div class="lesson-header">
+        <div class="lesson-num">// ADVANCED 06</div>
+        <div class="lesson-badge">CALLBACKS</div>
+      </div>
+      <div class="lesson-title">UVM Coverage Subscriber</div>
+      <div class="lesson-desc">Use a dedicated uvm_subscriber component to keep coverage logic separate from the monitor.</div>
+      <div class="code-block">
+        <div class="code-label">UVM SUBSCRIBER</div>
+<span class="kw">class</span> bus_coverage<br>
+&nbsp;&nbsp;<span class="kw">extends</span> uvm_subscriber #(bus_trans);<br><br>
+
+&nbsp;&nbsp;<span class="kw">covergroup</span> bus_cg;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cp_op: <span class="kw">coverpoint</span> t.opcode;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cp_addr: <span class="kw">coverpoint</span> t.addr {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> lo = {[<span class="num">0</span>:<span class="num">255</span>]};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw4">bins</span> hi = {[<span class="num">256</span>:<span class="num">511</span>]};<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">cross</span> cp_op, cp_addr;<br>
+&nbsp;&nbsp;<span class="kw">endgroup</span><br><br>
+
+&nbsp;&nbsp;bus_trans t;<br><br>
+
+&nbsp;&nbsp;<span class="kw">function new</span>(...);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw3">super</span>.new(...);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bus_cg = <span class="kw3">new</span>();<br>
+&nbsp;&nbsp;<span class="kw">endfunction</span><br><br>
+
+&nbsp;&nbsp;<span class="cmt">// uvm_subscriber calls this automatically</span><br>
+&nbsp;&nbsp;<span class="kw">function void</span> write(bus_trans tr);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;t = tr;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bus_cg.<span class="kw5">sample</span>();<br>
+&nbsp;&nbsp;<span class="kw">endfunction</span><br>
+<span class="kw">endclass</span>
+      </div>
+      <div class="lesson-explain">
+        <div class="explain-row"><div class="explain-dot"></div><div><strong>uvm_subscriber</strong> extends uvm_component with a built-in analysis export</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div>Monitor connects its analysis_port to subscriber's analysis_export</div></div>
+        <div class="explain-row"><div class="explain-dot"></div><div>write() is called automatically for each item broadcast by the monitor</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── MODULE 08: MORE EXAMPLES ── -->
+<div class="lesson-section">
+<div class="lesson-wrap">
+  <div class="section-tag">// MODULE 08 — EDGE CASES & TRICKY SCENARIOS</div>
+  <h2 class="section-title" style="margin-bottom:48px">Edge Cases &amp; Tricky Assertions</h2>
+
+  <div class="lessons-layout-3">
+
+    <!-- Throughout -->
+    <div class="lesson-card">
+      <div class="lesson-header">
+        <div class="lesson-num">// EDGE 01</div>
+        <div class="lesson-badge">THROUGHOUT</div>
+      </div>
+      <div class="lesson-title">throughout Operator</div>
+      <div class="lesson-desc">Signal must stay true throughout entire sequence.</div>
+      <div class="code-block">
+        <div class="code-label">SV</div>
+<span class="cmt">// CS must stay low during entire transfer</span><br>
+<span class="kw">property</span> cs_throughout;<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk)</span><br>
+&nbsp;&nbsp;$<span class="kw4">fell</span>(cs_n) <span class="kw5">|=></span><br>
+&nbsp;&nbsp;!cs_n <span class="kw5">throughout</span><br>
+&nbsp;&nbsp;(sclk[<span class="op">*</span><span class="num">8</span>] ##<span class="num">1</span> $<span class="kw4">rose</span>(cs_n));<br>
+<span class="kw">endproperty</span><br>
+<span class="kw2">CS_THROUGHOUT</span>: <span class="kw">assert property</span>(cs_throughout);
+      </div>
+    </div>
+
+    <!-- $past -->
+    <div class="lesson-card">
+      <div class="lesson-header">
+        <div class="lesson-num">// EDGE 02</div>
+        <div class="lesson-badge">$PAST</div>
+      </div>
+      <div class="lesson-title">$past() — History Checking</div>
+      <div class="lesson-desc">Reference signal values from previous cycles inside assertions.</div>
+      <div class="code-block">
+        <div class="code-label">SV</div>
+<span class="cmt">// Output must equal input from 2 cycles ago</span><br>
+<span class="kw">property</span> pipeline_delay;<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk)</span><br>
+&nbsp;&nbsp;valid_out <span class="kw5">|-></span><br>
+&nbsp;&nbsp;(data_out == $<span class="kw4">past</span>(data_in, <span class="num">2</span>));<br>
+<span class="kw">endproperty</span><br>
+<span class="kw2">PIPE_DELAY</span>: <span class="kw">assert property</span>(pipeline_delay);<br><br>
+<span class="cmt">// $past with gating expression</span><br>
+$<span class="kw4">past</span>(data, <span class="num">1</span>, valid_in, @clk)
+      </div>
+    </div>
+
+    <!-- $onehot grant -->
+    <div class="lesson-card">
+      <div class="lesson-header">
+        <div class="lesson-num">// EDGE 03</div>
+        <div class="lesson-badge">$ONEHOT</div>
+      </div>
+      <div class="lesson-title">$onehot — Arbiter Checks</div>
+      <div class="lesson-desc">Verify exactly one grant is active — the classic arbiter property.</div>
+      <div class="code-block">
+        <div class="code-label">SV</div>
+<span class="cmt">// At most one grant active</span><br>
+<span class="kw">property</span> mutex_grant;<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk)</span><br>
+&nbsp;&nbsp;$<span class="kw4">onehot0</span>(grant_bus);<br>
+<span class="kw">endproperty</span><br>
+<span class="kw2">ARB_MUTEX</span>: <span class="kw">assert property</span>(mutex_grant);<br><br>
+<span class="cmt">// If req, grant in 1-4 cycles</span><br>
+<span class="kw">property</span> fair_arb;<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk)</span><br>
+&nbsp;&nbsp;req[<span class="num">0</span>] <span class="kw5">|=></span> grant[<span class="num">0</span>][<span class="op">-></span><span class="num">1</span>]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;within ##[<span class="num">1</span>:<span class="num">4</span>] <span class="num">1'b1</span>;<br>
+<span class="kw">endproperty</span>
+      </div>
+    </div>
+
+    <!-- X-check -->
+    <div class="lesson-card">
+      <div class="lesson-header">
+        <div class="lesson-num">// EDGE 04</div>
+        <div class="lesson-badge">X-CHECK</div>
+      </div>
+      <div class="lesson-title">X-Value Checking</div>
+      <div class="lesson-desc">Detect undefined X/Z values propagating through the design.</div>
+      <div class="code-block">
+        <div class="code-label">SV</div>
+<span class="cmt">// No X on valid data bus</span><br>
+<span class="kw">property</span> no_x_on_data;<br>
+&nbsp;&nbsp;<span class="kw3">@(posedge clk)</span><br>
+&nbsp;&nbsp;valid <span class="kw5">|-></span> !$<span class="kw4">isunknown</span>(data);<br>
+<span class="kw">endproperty</span><br>
+<span class="kw2">NO_X_DATA</span>: <span class="kw">assert property</span>(no_x_on_data);<br><br>
+<span class="cmt">// Immediate X check</span><br>
+<span class="kw">always</span> @(<span class="kw3">posedge</span> clk)<br>
+&nbsp;&nbsp;<span class="kw2">assert</span> (state !== <span class="num">3'bx</span>)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw3">else</span> $<span class="kw5">error</span>(<span class="str">"X state!"</span>);
+      </div>
+    </div>
+
+    <!-- Consecutive until -->
+    <div class="lesson-card">
+      <div class="lesson-header">
+        <div class="lesson-num">// EDGE 05</div>
+        <div class="lesson-badge">CLOCKING</div>
+      </div>
+      <div class="lesson-title">Multi-clock Domains</div>
+      <div class="lesson-desc">Handle CDC scenarios with explicit clocking blocks in sequences.</div>
+      <div class="code-block">
+        <div class="code-label">SV</div>
+<span class="cmt">// Different clocks for TX/RX</span><br>
+<span class="kw">property</span> cdc_handshake;<br>
+&nbsp;&nbsp;@(<span class="kw3">posedge tx_clk</span>) req <span class="kw5">|=></span><br>
+&nbsp;&nbsp;@(<span class="kw3">posedge rx_clk</span>) ack[<span class="op">->1</span>]<br>
+&nbsp;&nbsp;within ##[<span class="num">1</span>:<span class="num">16</span>] <span class="num">1</span>;<br>
+<span class="kw">endproperty</span><br><br>
+<span class="cmt">// Clocking block in sequence</span><br>
+<span class="kw">sequence</span> fast_req;<br>
+&nbsp;&nbsp;@(<span class="kw3">posedge fast_clk</span>) req <span class="kw5">##2</span> !req;<br>
+<span class="kw">endsequence</span>
+      </div>
+    </div>
+
+    <!-- Recursive sequences -->
+    <div class="lesson-card">
+      <div class="lesson-header">
+        <div class="lesson-num">// EDGE 06</div>
+        <div class="lesson-badge">PROTOCOL</div>
+      </div>
+      <div class="lesson-title">I2C Start/Stop Detection</div>
+      <div class="lesson-desc">Detect protocol-level events using SVA sequences on I2C bus.</div>
+      <div class="code-block">
+        <div class="code-label">SV</div>
+<span class="cmt">// I2C START: SDA falls while SCL high</span><br>
+<span class="kw">sequence</span> i2c_start;<br>
+&nbsp;&nbsp;@(<span class="kw3">posedge sys_clk</span>)<br>
+&nbsp;&nbsp;scl &amp;&amp; $<span class="kw4">fell</span>(sda);<br>
+<span class="kw">endsequence</span><br><br>
+<span class="cmt">// I2C STOP: SDA rises while SCL high</span><br>
+<span class="kw">sequence</span> i2c_stop;<br>
+&nbsp;&nbsp;@(<span class="kw3">posedge sys_clk</span>)<br>
+&nbsp;&nbsp;scl &amp;&amp; $<span class="kw4">rose</span>(sda);<br>
+<span class="kw">endsequence</span><br><br>
+<span class="cmt">// Start must precede stop</span><br>
+<span class="kw">property</span> start_before_stop;<br>
+&nbsp;&nbsp;i2c_stop <span class="kw5">|-></span><br>
+&nbsp;&nbsp;i2c_start <span class="kw5">within</span> ##[<span class="num">1</span>:<span class="num">512</span>] i2c_stop;<br>
+<span class="kw">endproperty</span>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+<!-- ── CHEATSHEET ── -->
+<section id="cheatsheet" class="anchor">
+  <div class="section-tag">// MODULE 09 — QUICK REFERENCE</div>
+  <h2 class="section-title">SVA Cheatsheet</h2>
+  <p class="section-sub">Everything you need in one place. Print it, bookmark it, keep it open.</p>
+
+  <div class="cheatsheet-wrap">
+    <div class="cs-header">
+      <div class="cs-title">⚡ Temporal Operators Quick Reference</div>
+    </div>
+    <div class="cs-body">
+      <div class="cs-grid">
+        <div class="cs-item"><code>a ##N b</code><p>b exactly N cycles after a</p></div>
+        <div class="cs-item"><code>a ##[m:n] b</code><p>b between m and n cycles after a</p></div>
+        <div class="cs-item"><code>a[*N]</code><p>a true for exactly N cycles</p></div>
+        <div class="cs-item"><code>a[*m:n]</code><p>a true for m to n cycles</p></div>
+        <div class="cs-item"><code>a[+]</code><p>a true for 1 or more cycles</p></div>
+        <div class="cs-item"><code>a[*]</code><p>a true for 0 or more cycles</p></div>
+        <div class="cs-item"><code>a[->N]</code><p>a true exactly N non-consecutive times (end on last)</p></div>
+        <div class="cs-item"><code>a[=N]</code><p>a true N non-consecutive times (with extra after)</p></div>
+        <div class="cs-item"><code>a |-> b</code><p>Overlapping: if a, then b in same cycle</p></div>
+        <div class="cs-item"><code>a |=> b</code><p>Non-overlapping: if a, then b next cycle</p></div>
+        <div class="cs-item"><code>a throughout s</code><p>a must hold during all of sequence s</p></div>
+        <div class="cs-item"><code>s1 within s2</code><p>s1 occurs during the timeframe of s2</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cheatsheet-wrap" style="margin-top:24px">
+    <div class="cs-header">
+      <div class="cs-title">📊 Coverage Quick Reference</div>
+    </div>
+    <div class="cs-body">
+      <div class="cs-grid">
+        <div class="cs-item"><code>covergroup cg @(event);</code><p>Define coverage container, sample on event</p></div>
+        <div class="cs-item"><code>coverpoint signal { bins ... }</code><p>Track signal values with explicit buckets</p></div>
+        <div class="cs-item"><code>bins name = {values};</code><p>Simple value bin</p></div>
+        <div class="cs-item"><code>bins t = (A => B);</code><p>Transition bin: A followed by B</p></div>
+        <div class="cs-item"><code>wildcard bins n = {4'b1?0?};</code><p>Wildcard: ? matches 0 or 1</p></div>
+        <div class="cs-item"><code>ignore_bins x = {reserved};</code><p>Exclude from coverage metric</p></div>
+        <div class="cs-item"><code>illegal_bins y = {bad};</code><p>Error if sampled</p></div>
+        <div class="cs-item"><code>cross cp1, cp2;</code><p>All combinations of two coverpoints</p></div>
+        <div class="cs-item"><code>iff (condition)</code><p>Only sample when condition is true</p></div>
+        <div class="cs-item"><code>option.goal = N;</code><p>Coverage goal (default 100)</p></div>
+        <div class="cs-item"><code>option.at_least = N;</code><p>Need N hits per bin</p></div>
+        <div class="cs-item"><code>cg.sample();</code><p>Manual sampling trigger</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cheatsheet-wrap" style="margin-top:24px">
+    <div class="cs-header">
+      <div class="cs-title">🔧 System Functions</div>
+    </div>
+    <div class="cs-body">
+      <div class="cs-grid">
+        <div class="cs-item"><code>$rose(sig)</code><p>True on 0→1 transition</p></div>
+        <div class="cs-item"><code>$fell(sig)</code><p>True on 1→0 transition</p></div>
+        <div class="cs-item"><code>$stable(sig)</code><p>True if no change from prev cycle</p></div>
+        <div class="cs-item"><code>$past(sig, N)</code><p>Value of sig N cycles ago</p></div>
+        <div class="cs-item"><code>$onehot(bus)</code><p>Exactly one bit high</p></div>
+        <div class="cs-item"><code>$onehot0(bus)</code><p>At most one bit high</p></div>
+        <div class="cs-item"><code>$isunknown(expr)</code><p>Any bit is X or Z</p></div>
+        <div class="cs-item"><code>$countones(bus)</code><p>Count of 1-bits</p></div>
+        <div class="cs-item"><code>disable iff (rst)</code><p>Property disabled when true</p></div>
+        <div class="cs-item"><code>bind dut sva_mod inst(.*)</code><p>Non-intrusive assertion attachment</p></div>
+        <div class="cs-item"><code>first_match(seq)</code><p>Match on first completion of seq</p></div>
+        <div class="cs-item"><code>not property(p)</code><p>Invert a property</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── QUIZ SECTION ── -->
+<div class="quiz-section" id="quiz">
+  <div class="quiz-wrap">
+    <div class="section-tag" style="color:rgba(200,241,53,0.7)">// MODULE 10 — KNOWLEDGE CHECK</div>
+    <h2 class="section-title" style="color:#e8f0d0">Test Your Knowledge</h2>
+    <p class="section-sub" style="color:rgba(200,241,53,0.5)">Click an answer to check it. These questions appear in real DV interviews.</p>
+
+    <div class="quiz-grid">
+      <div class="quiz-card" id="q1">
+        <div class="quiz-q">1. What does |=> mean in SVA?</div>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="checkAnswer(this,'q1',false)">A) Check consequent in the same cycle as antecedent</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q1',true)">B) Check consequent in the NEXT cycle after antecedent</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q1',false)">C) Check consequent at any future time</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q1',false)">D) Disable the property if antecedent is true</div>
+        </div>
+      </div>
+      <div class="quiz-card" id="q2">
+        <div class="quiz-q">2. What happens when illegal_bins is triggered?</div>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="checkAnswer(this,'q2',false)">A) The bin is excluded from coverage percentage</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q2',false)">B) Coverage for that bin decreases</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q2',true)">C) A simulation error is raised</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q2',false)">D) Simulation pauses automatically</div>
+        </div>
+      </div>
+      <div class="quiz-card" id="q3">
+        <div class="quiz-q">3. What does a[*3] mean in a sequence?</div>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="checkAnswer(this,'q3',false)">A) a is true 3 non-consecutive times</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q3',true)">B) a is true for exactly 3 consecutive cycles</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q3',false)">C) a is true for at most 3 cycles</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q3',false)">D) a repeats 3 times with gaps allowed</div>
+        </div>
+      </div>
+      <div class="quiz-card" id="q4">
+        <div class="quiz-q">4. What does disable iff do in a property?</div>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="checkAnswer(this,'q4',false)">A) Causes property to fail when condition is true</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q4',false)">B) Pauses all assertions permanently</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q4',true)">C) Vacuously passes (disables) the property when condition is true</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q4',false)">D) Inverts the property logic</div>
+        </div>
+      </div>
+      <div class="quiz-card" id="q5">
+        <div class="quiz-q">5. What does option.at_least = 10 mean in a covergroup?</div>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="checkAnswer(this,'q5',false)">A) Maximum of 10 auto-generated bins</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q5',false)">B) Coverage goal is 10%</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q5',true)">C) Each bin needs at least 10 hits to be considered covered</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q5',false)">D) Minimum 10 coverpoints required</div>
+        </div>
+      </div>
+      <div class="quiz-card" id="q6">
+        <div class="quiz-q">6. What is the purpose of the bind construct?</div>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="checkAnswer(this,'q6',false)">A) Bind covergroups to clock events</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q6',true)">B) Attach assertions to a module without modifying its source</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q6',false)">C) Connect two sequences together with timing</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q6',false)">D) Merge coverage databases from multiple runs</div>
+        </div>
+      </div>
+      <div class="quiz-card" id="q7">
+        <div class="quiz-q">7. When would you use cover property vs assert property?</div>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="checkAnswer(this,'q7',false)">A) assert checks if something happened, cover checks it never happens</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q7',true)">B) assert fails simulation on violation, cover just measures how often it occurs</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q7',false)">C) cover is only for formal verification</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q7',false)">D) They are identical in behavior</div>
+        </div>
+      </div>
+      <div class="quiz-card" id="q8">
+        <div class="quiz-q">8. What does the throughout operator do?</div>
+        <div class="quiz-opts">
+          <div class="quiz-opt" onclick="checkAnswer(this,'q8',false)">A) Checks if a signal pulses for the entire simulation</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q8',true)">B) Signal must remain true for the full duration of a sequence</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q8',false)">C) Waits throughout until sequence completes</div>
+          <div class="quiz-opt" onclick="checkAnswer(this,'q8',false)">D) Checks that two sequences overlap in time</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ── FOOTER ── -->
 <footer>
-  <div class="footer-logo">⬡ DV HUB — Khaja Verification Universe</div>
-  <div class="footer-copy">Coverage · Assertions · SystemVerilog · UVM — Built for DV Engineers</div>
-  <a href="#overview" class="nav-cta" style="font-size:12px">Back to Top ↑</a>
+  <div class="footer-inner">
+    <div class="footer-logo">⬡ DV HUB — Khaja Verification Universe</div>
+    <div class="footer-links">
+      <a href="#coverage">Coverage</a>
+      <a href="#assertions">Assertions</a>
+      <a href="#keywords">Keywords</a>
+      <a href="#examples">Examples</a>
+      <a href="#advanced">Advanced</a>
+      <a href="#cheatsheet">Cheatsheet</a>
+      <a href="#quiz">Quiz</a>
+    </div>
+    <div class="footer-copy">Coverage · Assertions · SystemVerilog · UVM — Built for DV Engineers</div>
+  </div>
 </footer>
 
+<!-- Back to top -->
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
+
 <script>
-// Smooth active nav on scroll
+// Progress bar
+window.addEventListener('scroll', () => {
+  const el = document.documentElement;
+  const progress = (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
+  document.getElementById('progress-bar').style.width = progress + '%';
+  document.getElementById('back-to-top').classList.toggle('visible', el.scrollTop > 400);
+});
+
+// Active nav on scroll
 const sections = document.querySelectorAll('.anchor');
 const navLinks = document.querySelectorAll('.nav-links a');
-
 window.addEventListener('scroll', () => {
   let current = '';
   sections.forEach(s => {
     if (window.scrollY >= s.offsetTop - 120) current = s.id;
   });
   navLinks.forEach(a => {
-    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--lime)' : '';
+    const href = a.getAttribute('href').replace('#','');
+    a.classList.toggle('active', href === current);
   });
 });
 
-// Animate topic cards on scroll
+// Dashboard tab switching
+function activateTab(clicked) {
+  document.querySelectorAll('.db-tab').forEach(t => t.classList.remove('active'));
+  clicked.classList.add('active');
+}
+
+// Dashboard sidebar switching
+function activateMenu(clicked) {
+  document.querySelectorAll('.db-menu-item').forEach(i => i.classList.remove('active'));
+  clicked.classList.add('active');
+}
+
+// Card animations on scroll
 const observer = new IntersectionObserver(entries => {
-  entries.forEach((e, i) => {
+  entries.forEach(e => {
     if (e.isIntersecting) {
       e.target.style.opacity = '1';
       e.target.style.transform = 'translateY(0)';
     }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.08 });
 
-document.querySelectorAll('.topic-card, .lesson-card, .cov-card, .kw-card').forEach((el, i) => {
+document.querySelectorAll('.topic-card, .lesson-card, .cov-card, .kw-card, .quiz-card, .compare-card, .cs-item').forEach((el, i) => {
   el.style.opacity = '0';
-  el.style.transform = 'translateY(30px)';
-  el.style.transition = `opacity 0.5s ease ${i * 0.05}s, transform 0.5s ease ${i * 0.05}s`;
+  el.style.transform = 'translateY(28px)';
+  el.style.transition = `opacity 0.5s ease ${(i % 8) * 0.06}s, transform 0.5s ease ${(i % 8) * 0.06}s`;
   observer.observe(el);
 });
 
-// Tab switching on dashboard
-document.querySelectorAll('.db-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.db-tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
+// Quiz logic
+function checkAnswer(opt, questionId, isCorrect) {
+  const card = document.getElementById(questionId);
+  const opts = card.querySelectorAll('.quiz-opt');
+  opts.forEach(o => {
+    o.style.pointerEvents = 'none';
+    o.style.opacity = '0.5';
   });
-});
-
-document.querySelectorAll('.db-menu-item').forEach(item => {
-  item.addEventListener('click', () => {
-    document.querySelectorAll('.db-menu-item').forEach(i => i.classList.remove('active'));
-    item.classList.add('active');
-  });
-});
+  opt.style.opacity = '1';
+  if (isCorrect) {
+    opt.classList.add('correct');
+    opt.textContent = '✅ ' + opt.textContent;
+  } else {
+    opt.classList.add('wrong');
+    opt.textContent = '❌ ' + opt.textContent;
+    // highlight correct
+    opts.forEach(o => {
+      if (o !== opt) {
+        o.onclick && o.getAttribute('onclick');
+      }
+    });
+  }
+}
 </script>
 </body>
 </html>
